@@ -1,4 +1,4 @@
-# Magasin-CPP
+# SGMagasin-CPP
 
 Un projet universitaire visant à programmer un système de gestion d'un magasin en C++.
 

@@ -1,0 +1,1 @@
+// Agit comme le magasin

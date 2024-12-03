@@ -9,7 +9,6 @@ class Client
 {
     // Attributs
 private:
-    std::string *m_nom = nullptr;
     int m_age = 0;
     int id=0;
 
@@ -24,8 +23,6 @@ public:
     // Destructeurs (optionnel)
     ~Client();
     // Getters et Setters
-    void setNom(std::string &nom);
-    std::string *getNom() const;
 
     void setAge(int age);
     int getAge() const;
@@ -39,6 +36,7 @@ class ClientFidele : public Client
     // Atributs
 private:
     bool m_fidelite;
+    std::string *m_nom = nullptr;
     std::string m_adresse = "";
     int m_numTelephone = 0;
     std::string m_adresseMail = "";
@@ -55,6 +53,10 @@ public:
     // Méthodes
     virtual void acheter() override;
     // Getters et Setters
+
+    void setNom(std::string &nom);
+    std::string *getNom() const;
+    
     void setFidelite(bool fidelite);
     bool getFidelite() const;
 

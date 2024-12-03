@@ -12,58 +12,69 @@ Pour un client fidèlé :
 */
 
 #include "client.hpp"
+#include <iostream>
+#include <cassert>
 
 // Définitions des constructeurs
 
-Client::Client(int id, int age) : 
-    m_id(id),
-    m_age(age) {
-        if (id<0||age<0)
-        {
-            std::cout<<"Erreur d'initialisation : L'âge ne peut pas être inférieur à 0. De même pour l'id."<<std::endl;
-        }
-        
-    }
-    
-ClientFidele::ClientFidele(int id, int age, bool fidelite, std::string *nom, std::string adresse, 
-                           int numTelephone, std::string adresseMail, std::vector<std::string> listeAchats, 
-                           int pointsFidelite, std::string sexe) :
-    Client(id, age), // Appel du constructeur parent
-    m_fidelite(fidelite),
-    m_nom(nom),
-    m_adresse(adresse),
-    m_numTelephone(numTelephone),
-    m_adresseMail(adresseMail),
-    m_listeAchats(listeAchats),
-    m_pointsFidelite(pointsFidelite),
-    m_sexe(sexe){
-    if (nom == nullptr || nom->empty())
-    {
-        throw std::invalid_argument("Le nom ne peut pas être nul ou vide.");
-    }
-    if (adresse.empty())
-    {
-        throw std::invalid_argument("L'adresse ne peut pas être vide.");
-    }
-    if (numTelephone <= 0)
-    {
-        throw std::invalid_argument("Le numéro de téléphone doit être un entier positif.");
-    }
-    if (adresseMail.empty() || adresseMail.find('@') == std::string::npos)
-    {
-        throw std::invalid_argument("L'adresse mail doit être valide et contenir un '@'.");
-    }
-    if (listeAchats.empty())
-    {
-        std::cerr << "Avertissement : La liste des achats est vide." << std::endl;
-    }
-    if (pointsFidelite < 0)
-    {
-        throw std::invalid_argument("Les points de fidélité ne peuvent pas être négatifs.");
-    }
-    if (sexe != "Homme" && sexe != "Femme" && sexe != "Non spécifié")
-    {
-        throw std::invalid_argument("Le sexe doit être 'Homme', 'Femme' ou 'Non spécifié'.");
-    }
+Client::Client(int id, int age) : m_id(id),
+                                  m_age(age)
+{
+    assert(id >= 0 && age >= 0);
+    std::cout << "Erreur d'initialisation : L'âge ne peut pas être inférieur à 0. De même pour l'id." << std::endl;
 }
 
+ClientFidele::ClientFidele(int id, int age, bool fidelite, std::string *nom, std::string adresse,
+                           std::string numTelephone, std::string adresseMail, std::vector<std::string> listeAchats,
+                           int pointsFidelite, TypeSexe sexe) : Client(id, age), // Appel du constructeur parent
+                                                                m_fidelite(fidelite),
+                                                                m_nom(nom),
+                                                                m_adresse(adresse),
+                                                                m_numTelephone(numTelephone),
+                                                                m_adresseMail(adresseMail),
+                                                                m_listeAchats(listeAchats),
+                                                                m_pointsFidelite(pointsFidelite),
+                                                                m_sexe(sexe)
+{
+    assert(nom == nullptr || nom->empty());
+    std::cout << "Le nom ne peut pas être nul ou vide." << std::endl;
+
+    assert(adresse.empty());
+    std::cout<<"L'adresse ne peut pas être vide." << std::endl;
+
+    assert(numTelephone.empty());
+    std::cout << "Le numéro de téléphone doit être un entier positif."  << std::endl;
+
+    assert(adresseMail.empty());
+    std::cout<< "L'adresse mail doit être valide et contenir un '@'."  << std::endl;
+
+    assert(pointsFidelite < 0);
+    std::cout<<"Les points de fidélité ne peuvent pas être négatifs."<< std::endl;
+
+    assert(sexe != TypeSexe::Homme && sexe != TypeSexe::Femme && sexe != TypeSexe::NonSpecifie);
+    std::cout<<"Le sexe doit être 'Homme', 'Femme' ou 'Aucun'.";
+}
+
+//Définition des méthodes
+void Client::souscrireFidelite(int& tempId){
+    setFidelite(true);
+    int id=tempId+1;
+    tempId+=1;
+    std::string nom;
+    std::cout<<"Entrez Nom Prénom";
+    std::cin>>nom;
+    int age;
+    std::cout<<"Entrez âge";
+    std::cin>>age;
+    std::string adresse;
+    std::cout<<"Entrez adresse";
+    std::cin>>adresse;
+    std::string numTelephone;
+    std::cout<<"Entrez numéro de téléphone";
+    std::cin>>numTelephone;
+    std::string adresseMail;
+    std::cout<<"Entrez adresse mail";
+    std::cin>>adresseMail;
+    int pointFidelite=0;
+}
+}

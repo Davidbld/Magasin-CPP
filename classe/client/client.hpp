@@ -16,7 +16,7 @@ public:
     // Méthodes
     virtual void acheter();
     // La souscription se fait par la transposition d'un objet vers un autre. [A FAIRE AVEC DES CONSTRUCTEURS]
-    void souscrireFidelite();
+    void souscrireFidelite(int &tempId);
     // Constructeurs
     Client(int id, int age);
     // Destructeurs (optionnel)
@@ -32,22 +32,29 @@ public:
 
 class ClientFidele : public Client
 {
-    // Atributs
+public:
+    // Définition de l'enum
+    enum class TypeSexe {
+        Homme,
+        Femme,
+        NonSpecifie
+    };
+
 private:
     bool m_fidelite;
     std::string *m_nom = nullptr;
     std::string m_adresse = "";
-    int m_numTelephone = 0;
+    std::string m_numTelephone = 0;
     std::string m_adresseMail = "";
     std::vector<std::string> m_listeAchats;
     int m_pointsFidelite = 0;
-    std::string m_sexe = "";
+    TypeSexe m_sexe;
 
 public:
     // Méthodes
     virtual void acheter() override;
     // Constructeurs
-    ClientFidele(int id, int age, bool fidelite, std::string *nom, std::string adresse, int numTelephone, std::string adresseMail, std::vector<std::string> listeAchats, int pointsFidelite, std::string sexe );
+    ClientFidele(int id, int age, bool fidelite, std::string *nom, std::string adresse, std::string numTelephone, std::string adresseMail, std::vector<std::string> listeAchats, int pointsFidelite, TypeSexe sexe );
 
     // Getters et Setters
 
@@ -60,8 +67,8 @@ public:
     void setAdresse(const std::string &adresse);
     const std::string &getAdresse() const;
 
-    void setNumTelephone(int numTelephone);
-    int getNumTelephone() const;
+    void setNumTelephone(std::string numTelephone);
+    std::string getNumTelephone() const;
 
     void setAdresseMail(const std::string &adresseMail);
     const std::string &getAdresseMail() const;
@@ -72,8 +79,8 @@ public:
     void setPointsFidelite(int points);
     int getPointsFidelite() const;
 
-    void setSexe(std::string sexe);
-    std::string getSexe() const;
+    void setSexe(TypeSexe sexe);
+    TypeSexe getSexe() const;
 };
 
 #endif

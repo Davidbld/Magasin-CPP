@@ -8,9 +8,9 @@
 class Client
 {
     // Attributs
-private:
+protected:
     int m_age = 0;
-    int id=0;
+    int m_id = 0;
 
 public:
     // Méthodes
@@ -19,7 +19,6 @@ public:
     void souscrireFidelite();
     // Constructeurs
     Client(int id, int age);
-    Client(int id, int age, std::string nom);
     // Destructeurs (optionnel)
     ~Client();
     // Getters et Setters
@@ -42,21 +41,19 @@ private:
     std::string m_adresseMail = "";
     std::vector<std::string> m_listeAchats;
     int m_pointsFidelite = 0;
-    enum m_sexe
-    {
-        Male,
-        Femmelle,
-        Aucun
-    };
+    std::string m_sexe = "";
 
 public:
     // Méthodes
     virtual void acheter() override;
+    // Constructeurs
+    ClientFidele(int id, int age, bool fidelite, std::string *nom, std::string adresse, int numTelephone, std::string adresseMail, std::vector<std::string> listeAchats, int pointsFidelite, std::string sexe );
+
     // Getters et Setters
 
     void setNom(std::string &nom);
     std::string *getNom() const;
-    
+
     void setFidelite(bool fidelite);
     bool getFidelite() const;
 
@@ -75,8 +72,8 @@ public:
     void setPointsFidelite(int points);
     int getPointsFidelite() const;
 
-    void setSexe(m_sexe sexe);
-    m_sexe getSexe() const;
+    void setSexe(std::string sexe);
+    std::string getSexe() const;
 };
 
 #endif

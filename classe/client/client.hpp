@@ -19,8 +19,7 @@ public:
     void souscrireFidelite(int& tempIdClient, ClientFidele& newClientFidele, Client* oldClient);
     // Constructeurs
     Client(int id, int age);
-    // Destructeurs (optionnel)
-    ~Client();
+    
     // Getters et Setters
 
     void setAge(int age);

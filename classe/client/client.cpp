@@ -57,7 +57,7 @@ ClientFidele::ClientFidele(int id, int age, bool fidelite, std::string *nom, std
 
 //Définition des méthodes
 void Client::souscrireFidelite(int& tempId){
-    setFidelite(true);
+    bool fidelite = true;
     int id=tempId+1;
     tempId+=1;
     std::string nom;
@@ -77,4 +77,82 @@ void Client::souscrireFidelite(int& tempId){
     std::cin>>adresseMail;
     int pointFidelite=0;
 }
+
+
+//Définition des getters et setters
+
+void Client::setAge(int age) {
+    m_age = age;
+}
+
+int Client::getAge() const {
+    return m_age;
+}
+
+void Client::setId(int id) {
+    m_id = id;
+}
+
+int Client::getId() const {
+    return m_id;
+}
+
+std::string *ClientFidele::getNom() const {
+    return m_nom;
+}
+
+void ClientFidele::setFidelite(bool fidelite) {
+    m_fidelite = fidelite;
+}
+
+bool ClientFidele::getFidelite() const {
+    return m_fidelite;
+}
+
+void ClientFidele::setAdresse(const std::string &adresse) {
+    m_adresse = adresse;
+}
+
+const std::string &ClientFidele::getAdresse() const {
+    return m_adresse;
+}
+
+void ClientFidele::setNumTelephone(std::string numTelephone) {
+    m_numTelephone = numTelephone;
+}
+
+std::string ClientFidele::getNumTelephone() const {
+    return m_numTelephone;
+}
+
+void ClientFidele::setAdresseMail(const std::string &adresseMail) {
+    m_adresseMail = adresseMail;
+}
+
+const std::string &ClientFidele::getAdresseMail() const {
+    return m_adresseMail;
+}
+
+void ClientFidele::setListeAchats(const std::vector<std::string> &listeAchats) {
+    m_listeAchats = listeAchats;
+}
+
+const std::vector<std::string> &ClientFidele::getListeAchats() const {
+    return m_listeAchats;
+}
+
+void ClientFidele::setPointsFidelite(int points) {
+    m_pointsFidelite = points;
+}
+
+int ClientFidele::getPointsFidelite() const {
+    return m_pointsFidelite;
+}
+
+void ClientFidele::setSexe(TypeSexe sexe) {
+    m_sexe = sexe;
+}
+
+ClientFidele::TypeSexe ClientFidele::getSexe() const {
+    return m_sexe;
 }

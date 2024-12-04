@@ -2,35 +2,34 @@
 #define CLIENT_HPP
 
 #include <string>
-#include <iostream>
 #include <vector>
 
-class Client
-{
-    // Attributs
+class Client {
 protected:
+    // Attributs
     int m_age = 0;
     int m_id = 0;
 
 public:
-    // Méthodes
-    virtual void acheter();
-    // La souscription se fait par la transposition d'un objet vers un autre. [A FAIRE AVEC DES CONSTRUCTEURS]
-    void souscrireFidelite(int &tempIdClient, ClientFidele &newClientFidele, Client *oldClient);
     // Constructeurs
     Client(int id, int age);
 
-    // Getters et Setters
+    // Méthodes
+    virtual void acheter();
+    void souscrireFidelite(int &tempIdClient, class ClientFidele &newClientFidele, Client *oldClient);
 
+    // Getters et Setters
     void setAge(int age);
     int getAge() const;
 
     void setId(int id);
     int getId() const;
+
+    // Virtual destructor pour permettre une suppression correcte des objets hérités
+    virtual ~Client() = default;
 };
 
-class ClientFidele : public Client
-{
+class ClientFidele : public Client {
 public:
     // Définition de l'enum
     enum class TypeSexe {
@@ -40,25 +39,28 @@ public:
     };
 
 private:
+    // Attributs spécifiques à ClientFidele
     bool m_fidelite;
-    std::string *m_nom = nullptr;
+    std::string m_nom = "";
     std::string m_adresse = "";
-    std::string m_numTelephone = 0;
+    std::string m_numTelephone = "";
     std::string m_adresseMail = "";
     std::vector<std::string> m_listeAchats;
     int m_pointsFidelite = 0;
     TypeSexe m_sexe;
 
 public:
-    // Méthodes
-    virtual void acheter() override;
     // Constructeurs
-    ClientFidele(int id, int age, bool fidelite, std::string *nom, std::string adresse, std::string numTelephone, std::string adresseMail, std::vector<std::string> listeAchats, int pointsFidelite, TypeSexe sexe );
+    ClientFidele(int id, int age, bool fidelite, const std::string &nom, const std::string &adresse, 
+                 const std::string &numTelephone, const std::string &adresseMail, 
+                 const std::vector<std::string> &listeAchats, int pointsFidelite, TypeSexe sexe);
+
+    // Méthodes
+    void acheter() override;
 
     // Getters et Setters
-
-    void setNom(std::string &nom);
-    std::string *getNom() const;
+    void setNom(const std::string &nom);
+    const std::string &getNom() const;
 
     void setFidelite(bool fidelite);
     bool getFidelite() const;
@@ -66,8 +68,8 @@ public:
     void setAdresse(const std::string &adresse);
     const std::string &getAdresse() const;
 
-    void setNumTelephone(std::string numTelephone);
-    std::string getNumTelephone() const;
+    void setNumTelephone(const std::string &numTelephone);
+    const std::string &getNumTelephone() const;
 
     void setAdresseMail(const std::string &adresseMail);
     const std::string &getAdresseMail() const;
@@ -80,6 +82,9 @@ public:
 
     void setSexe(TypeSexe sexe);
     TypeSexe getSexe() const;
+
+    // Destructeur virtuel
+    ~ClientFidele() override = default;
 };
 
 #endif

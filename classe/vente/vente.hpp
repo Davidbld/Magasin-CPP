@@ -4,31 +4,35 @@ La vente avec réduction se fait avec la méthode virtuelle
 #ifndef VENTE_HPP
 #define VENTE_HPP
 
-#include "produit.cpp"
+#include <string>
+#include "classe/produit/produit.hpp"
 
-class Vente{
-private :
-    Produit m_produit;
-    int m_quantite;
-    std::string m_dateVente;
-    int m_prixTTC;
+class Vente {
+private:
+    Produit m_produit;           // Produit associé à la vente
+    int m_prixTTC = 0;           // Prix total TTC
+    int m_quantite = 0;          // Quantité vendue
+    std::string m_dateVente;     // Date de la vente (format jj/mm/aaaa)
 
-public : 
-// Constructeur
-    Vente(const Produit& produit, int prixTTC, int m_quantite, const std::string& m_dateVente);
+public:
+    // Constructeur
+    Vente(const Produit& produit, int prix, int quantite, const std::string& dateVente);
 
-// Getters et Setters
-
+    // Setters
     void setPrixTTC(int prixTTC);
-    int getPrixTTC() const;
-
     void setQuantite(int quantite);
-    int getQuantite() const;
+    void setDateVente(const std::string& dateVente);
 
-    void setDateVente(const std::string& m_dateVente);
+    // Getters
+    int getPrixTTC() const;
+    int getQuantite() const;
     const std::string& getDateVente() const;
-//Méthode
-    void vente();
+
+    // Méthode pour écrire les données dans un fichier ou flux
+    void ecrireDansFichier(std::ostream& fichier) const;
+
+    // Destructeur
+    ~Vente() = default;
 };
 
 #endif

@@ -4,8 +4,6 @@ Un projet universitaire visant à programmer un système de gestion d'un magasin
 
 Nous avons cherché, dans le laps de temps qui nous était imparti, à concevoir un système aussi réaliste que possible.
 
----
-
 ## Fonctionnalités
 
 Ce système de gestion fictif repose sur plusieurs classes : 
@@ -41,14 +39,10 @@ Ce système de gestion fictif repose sur plusieurs classes :
      - Quantité vendue.
      - Date de la vente.
 
----
-
 ## Utilisation
 
 ***En cours de conception***  
 Un guide détaillé d'utilisation sera fourni ultérieurement.
-
----
 
 ## Nomenclature des *commits*
 
@@ -57,13 +51,9 @@ Un guide détaillé d'utilisation sera fourni ultérieurement.
 - **Fix** : Correctif mineur ou mise à jour légère.
 - **Docs** : Modification ou mise à jour de la documentation.
 
----
-
 ## Licence
 
 Ce projet open source a été réalisé dans un cadre éducatif. Il ne doit pas être reproduit, commercialisé ou modifié par des tiers en dehors de ses contributeurs principaux.
-
----
 
 ## Contributeurs
 

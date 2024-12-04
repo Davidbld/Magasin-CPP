@@ -52,30 +52,62 @@ ClientFidele::ClientFidele(int id, int age, bool fidelite, std::string *nom, std
     std::cout<<"Les points de fidélité ne peuvent pas être négatifs."<< std::endl;
 
     assert(sexe != TypeSexe::Homme && sexe != TypeSexe::Femme && sexe != TypeSexe::NonSpecifie);
-    std::cout<<"Le sexe doit être 'Homme', 'Femme' ou 'Aucun'.";
+    std::cout<<"Le sexe doit être 'Homme', 'Femme' ou 'NonSpecifie'."<< std::endl;
 }
 
 //Définition des méthodes
-void Client::souscrireFidelite(int& tempId){
+void Client::souscrireFidelite(int& tempIdClient, ClientFidele& newClientFidele, Client* oldClient){
     bool fidelite = true;
-    int id=tempId+1;
-    tempId+=1;
+
+    int id=tempIdClient+1;
+    tempIdClient+=1;
+
     std::string nom;
-    std::cout<<"Entrez Nom Prénom";
+    std::cout<<"Entrez Nom Prénom"<< std::endl;
     std::cin>>nom;
+
     int age;
-    std::cout<<"Entrez âge";
+    std::cout<<"Entrez âge"<< std::endl;
     std::cin>>age;
+
     std::string adresse;
-    std::cout<<"Entrez adresse";
+    std::cout<<"Entrez adresse"<< std::endl;
     std::cin>>adresse;
+
     std::string numTelephone;
-    std::cout<<"Entrez numéro de téléphone";
+    std::cout<<"Entrez numéro de téléphone"<< std::endl;
     std::cin>>numTelephone;
+
     std::string adresseMail;
-    std::cout<<"Entrez adresse mail";
+    std::cout<<"Entrez adresse mail"<< std::endl;
     std::cin>>adresseMail;
+
     int pointFidelite=0;
+
+    int sexeInput;
+    ClientFidele::TypeSexe sexe;
+    std::cout << "Veuillez entrer le sexe du client (0 = Homme, 1 = Femme, 2 = Non spécifié) : "<< std::endl;
+    std::cin >> sexeInput;
+
+    if (sexeInput==0){
+        sexe=ClientFidele::TypeSexe::Homme;
+    }
+    else if (sexeInput==1){
+        sexe=ClientFidele::TypeSexe::Femme;
+    }
+    else{
+        sexe=ClientFidele::TypeSexe::NonSpecifie;
+    }
+
+    std::vector<std::string> liste; //Liste vide pour pouvoir y ajouter les achats ultérieurement
+    
+    ClientFidele newClientFidele(id, age, fidelite, &nom, adresse, numTelephone, adresseMail, liste, pointFidelite, sexe);
+    std::cout<<"Client souscrit au programme fidélite !"<< std::endl;
+
+    //Si un ancien client existe, le supprimer : Si le client souscrit pendant un achat il aura deja une classe "Client" associée. Si il crée en dehors d'un achat il n'en aura pas.
+    if (oldClient != nullptr) {
+        delete oldClient; // Libérer l'ancien client
+    }
 }
 
 

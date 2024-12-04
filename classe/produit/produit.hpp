@@ -16,7 +16,6 @@ private :
     
     // Initialisation des variables privates pour le prix Hors Taxe et le prix Toutes Taxes Comprises. Le prix TTC est calculé via le prix HT
     int m_prixHT=0;
-    int m_prixTTC = 0;
     enum m_categorie{
         Alcool,
         Alimentaire,
@@ -28,14 +27,11 @@ private :
 
 public : 
     //Constructeur
-    Produit(int prixHT,int prixTTC, m_categorie categorie, long int codeProduit);
+    Produit(int prixHT, m_categorie categorie, long int codeProduit);
 
     // Getters et Setters
     void setPrixHT(int prixHT);
     int getPrixHT() const;
-
-    void setPrixTTC(int prixTTC);
-    int getPrixTTC() const;
 
     void setCategorie(m_categorie categorie);
     m_categorie getCategorie() const;

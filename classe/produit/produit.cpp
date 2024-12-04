@@ -9,15 +9,12 @@ Les produits sont divisés en plusieurs catégorie :
 #include <cassert>
 
 // Constructeur
-Produit::Produit(int prixHT, int prixTTC, m_categorie categorie, long int codeProduit)
-    : m_prixHT(prixHT), m_prixTTC(prixTTC), m_typeCategorie(categorie), m_stock(0) {
+Produit::Produit(int prixHT, m_categorie categorie, long int codeProduit)
+    : m_prixHT(prixHT), m_typeCategorie(categorie), m_stock(0) {
     // Vérification des assertions pour valider les entrées
 
     assert(prixHT >= 0);
         std::cout << "Le prix HT ne peut pas être négatif." << std::endl;
-
-    assert(prixTTC >= 0);
-        std::cout << "Le prix TTC ne peut pas être inférieur au prix HT." << std::endl;
 
     assert(categorie == m_categorie::Alcool || categorie == m_categorie::Alimentaire || categorie == m_categorie::nonAlimentaire);
         std::cout << "La catégorie doit être 'Alcool', 'Alimentaire' ou 'Non Alimentaire'." << std::endl;
@@ -28,10 +25,6 @@ Produit::Produit(int prixHT, int prixTTC, m_categorie categorie, long int codePr
 // Setters et Getters
 void Produit::setPrixHT(int prixHT) {
     m_prixHT = prixHT;
-}
-
-void Produit::setPrixTTC(int prixTTC) {
-    m_prixTTC = prixTTC;
 }
 
 void Produit::setCategorie(m_categorie categorie) {
@@ -49,10 +42,6 @@ void Produit::setStock(int stock) {
 // Getters
 int Produit::getPrixHT() const {
     return m_prixHT;
-}
-
-int Produit::getPrixTTC() const {
-    return m_prixTTC;
 }
 
 Produit::m_categorie Produit::getCategorie() const {

@@ -28,7 +28,7 @@ private :
 
 public : 
     //Constructeur
-    Produit(int prix, m_categorie categorie, long int codeProduit);
+    Produit(int prixHT,int prixTTC, m_categorie categorie, long int codeProduit);
 
     // Getters et Setters
     void setPrixHT(int prixHT);

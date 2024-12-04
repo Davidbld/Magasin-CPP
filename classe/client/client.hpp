@@ -16,10 +16,10 @@ public:
     // Méthodes
     virtual void acheter();
     // La souscription se fait par la transposition d'un objet vers un autre. [A FAIRE AVEC DES CONSTRUCTEURS]
-    void souscrireFidelite(int& tempIdClient, ClientFidele& newClientFidele, Client* oldClient);
+    void souscrireFidelite(int &tempIdClient, ClientFidele &newClientFidele, Client *oldClient);
     // Constructeurs
     Client(int id, int age);
-    
+
     // Getters et Setters
 
     void setAge(int age);

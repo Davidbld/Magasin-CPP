@@ -55,8 +55,14 @@ ClientFidele::ClientFidele(int id, int age, bool fidelite, std::string *nom, std
     std::cout<<"Le sexe doit être 'Homme', 'Femme' ou 'NonSpecifie'."<< std::endl;
 }
 
+
 //Définition des méthodes
-void Client::souscrireFidelite(int& tempIdClient, ClientFidele& newClientFidele, Client* oldClient){
+
+void Client::acheter(){
+    //Besoin de la classe produit et de la classe vente
+}
+
+void Client::souscrireFidelite(int &tempIdClient, ClientFidele &newClientFidele, Client *oldClient){
     bool fidelite = true;
 
     int id=tempIdClient+1;
@@ -109,6 +115,7 @@ void Client::souscrireFidelite(int& tempIdClient, ClientFidele& newClientFidele,
         delete oldClient; // Libérer l'ancien client
     }
 }
+
 
 
 //Définition des getters et setters

@@ -28,4 +28,3 @@ Ce projet étant fait dans un cadre universitaire, il y a certaines contraintes 
         - [**IMPLÉMENTÉ DANS VENTE**]
 - Présence d’au moins une méthode virtuelle dans l’application.
     - [**IMPLÉMENTÉ DANS : ARTICLES/ALCOOL/ALIMENTAIRE**]
-- Votre programme doit gérer 

@@ -14,7 +14,7 @@ private :
 
 public : 
 //Constructeur
-    Commande(int delaiLivraison, std::string nomProduit, int codeProduit, int quantiteProduit)
+    Commande(int delaiLivraison, std::string nomProduit, int codeProduit, int quantiteProduit);
 //Getters and Setters
     void setDelaiLivraison(int delaiLivraison);
     int getDelaiLivraison() const;

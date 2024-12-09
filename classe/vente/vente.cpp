@@ -51,7 +51,7 @@ const std::string& Vente::getDateVente() const {
 
 // Nouvelle méthode pour écrire les données dans un fichier
 void Vente::ecrireDansFichier(std::ostream& fichier) const {
-    fichier << "Produit : " << m_produit.getNom() << "\n"; //getNom n'est pas dans le produit, pour l'instant
+    fichier << "Produit : " << m_produit.getNomProduit() << "\n";
     fichier << "Prix TTC : " << m_prixTTC << "\n";
     fichier << "Quantité : " << m_quantite << "\n";
     fichier << "Date : " << m_dateVente << "\n";

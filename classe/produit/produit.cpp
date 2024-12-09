@@ -9,22 +9,28 @@ Les produits sont divisés en plusieurs catégorie :
 #include <cassert>
 
 // Constructeur
-Produit::Produit(int prixHT, m_categorie categorie, long int codeProduit)
+Produit::Produit(int prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit)
     : m_prixHT(prixHT), m_typeCategorie(categorie), m_stock(0) {
     // Vérification des assertions pour valider les entrées
-
-    assert(prixHT >= 0);
-        std::cout << "Le prix HT ne peut pas être négatif." << std::endl;
-
-    assert(categorie == m_categorie::Alcool || categorie == m_categorie::Alimentaire || categorie == m_categorie::nonAlimentaire);
-        std::cout << "La catégorie doit être 'Alcool', 'Alimentaire' ou 'Non Alimentaire'." << std::endl;
-
-    assert(codeProduit > 0);
-        std::cout << "Le code produit doit être un entier positif." << std::endl;
+    assert(prixHT >= 0 && "Le prix HT ne peut pas être négatif.");
+    assert(
+        categorie == m_categorie::Alcool || 
+        categorie == m_categorie::Alimentaire || 
+        categorie == m_categorie::nonAlimentaire &&
+        "La catégorie doit être 'Alcool', 'Alimentaire' ou 'Non Alimentaire'."
+    );
+    assert(codeProduit > 0 && "Le code produit doit être un entier positif.");
+    assert(!nomProduit.empty() && "Le nom du produit ne peut pas être vide.");
 }
-// Setters et Getters
+
+
+// Setters
 void Produit::setPrixHT(int prixHT) {
     m_prixHT = prixHT;
+}
+
+void Produit::setNomProduit(std::string nomProduit){
+    m_nomProduit = nomProduit;
 }
 
 void Produit::setCategorie(m_categorie categorie) {
@@ -42,6 +48,10 @@ void Produit::setStock(int stock) {
 // Getters
 int Produit::getPrixHT() const {
     return m_prixHT;
+}
+
+std::string Produit::getNomProduit() const{
+    return m_nomProduit;
 }
 
 Produit::m_categorie Produit::getCategorie() const {

@@ -13,9 +13,12 @@ Pour un client fidèlé :
 
 #include "client.hpp"
 #include <iostream>
+#include <cmath>
 #include <cassert>
+#include <cctype>
 #include <vector>
 #include <string>
+#include "classe/vente/vente.hpp"
 
 // Définitions des classes Client et ClientFidele
 
@@ -50,12 +53,122 @@ ClientFidele::ClientFidele(int id, int age, bool fidelite, const std::string &no
 
 // Méthodes
 
-void Client::acheter()
+void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
 {
-    // Logique d'achat (nécessite les classes Produit et Vente)
+    int age;
+    std::cout << "Entrez âge : ";
+    std::cin >> age;
+
+    std::string date;
+    std::cout << "Entre la date. (dd/mm/aaaa)";
+    std::cin >> date;
+
+    Client tempClient(tempId+1, age);
+    tempId+=1;
+
+    std::string categorie = produit.getCategorieAsString();
+
+    //Vérification de l'âge du client
+    if (categorie == "Alcool" && age < 18){
+        std::cout << "Vous devez avoir 18 ans pour acheter de l'alcool." << std::endl;
+        return; 
+    }
+
+    double TVA  = 0;
+
+    if (categorie == "Alimentaire"){
+        TVA=5.5;
+    }
+
+    else{
+        TVA = 20;
+    }
+
+    //Calcul du prix de vente
+    double prixTTC = produit.getPrixHT()*(1+TVA/100);
+    prixTTC = std::round(prixTTC * 100)/100; //Arrondi au centimes près
+
+    //Renseignement de la vente dans le fichier
+    Vente tempVente(produit, prixTTC, quantiteAchetee, date);
+    tempVente.ecrireDansFichier(fichierVentes);
+
+    //Mise à jour du stock correspondant au produit vendu
+    produit.setStock(produit.getStock()-quantiteAchetee);
+
+    std::string souscription = "";
+    std::cout << "Le client veut-il souscire au programme fidélité ? (Oui/Non)" <<std::endl;
+    std::cin >> souscription;
+
+    if(souscription == "Oui"){
+        Client::souscrireFidelite(tempId, listeClientsFideles, &tempClient);
+        // TODO : Ajouter l'achat à la liste d'achat du nouveau client fidèle créé
+        // TODO : ajouter les points de fidelité correspondant à l'achat (je vois comment faire mais manque de temps sur le moment)
+    }
+
 }
 
-void Client::souscrireFidelite(int &tempIdClient, ClientFidele &newClientFidele, Client *oldClient)
+void ClientFidele::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
+{
+    ClientFidele client = listeClientsFideles[idClientFidele];
+
+    int age = client.getAge();
+
+    std::string date;
+    std::cout << "Entre la date. (dd/mm/aaaa)";
+    std::cin >> date;
+
+    std::string categorie = produit.getCategorieAsString();
+
+    //Vérification de l'âge du client
+    if (categorie == "Alcool" && age < 18){
+        std::cout << "Vous devez avoir 18 ans pour acheter de l'alcool." << std::endl;
+        return; 
+    }
+
+    //Vérification de l'âge du client
+    if (categorie == "Alcool" && age < 18){
+        std::cout << "Vous devez avoir 18 ans pour acheter de l'alcool." << std::endl;
+        return; 
+    }
+
+    //Calcul du prix de vente
+    double TVA  = 0;
+
+    if (categorie == "Alimentaire"){
+        TVA=5.5;
+    }
+
+    else{
+        TVA = 20;
+    }
+
+    double prixTTC = produit.getPrixHT()*(1+TVA/100);
+    prixTTC = std::round(prixTTC * 100)/100; //Arrondi au centimes près
+
+    //Application des points fidélité
+    std::string usePtFidelite = "";
+    std::cout << "Le client veut-il utiliser ses points de fidelite ? (Oui/Non)" <<std::endl;
+    std::cin >> usePtFidelite;
+
+    if(usePtFidelite == "Oui"){
+        int ptFidelite = client.getPointsFidelite();
+        prixTTC = prixTTC - 0.02*ptFidelite;
+        client.setPointsFidelite(0);
+    }
+    
+    //Gain des points de fidelité
+    client.setPointsFidelite(static_cast<int>(std::floor(prixTTC)));
+
+    //Renseignement de la vente dans le fichier
+    Vente tempVente(produit, prixTTC, quantiteAchetee, date);
+    tempVente.ecrireDansFichier(fichierVentes);
+
+    //Mise à jour du stock correspondant au produit vendu
+    produit.setStock(produit.getStock()-quantiteAchetee);
+
+}
+
+void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> listeClientsFideles, Client *oldClient)
 {
     int id = ++tempIdClient;
 
@@ -101,7 +214,9 @@ void Client::souscrireFidelite(int &tempIdClient, ClientFidele &newClientFidele,
     std::vector<std::string> liste; // Liste vide pour ajouter les achats ultérieurement
 
     // Création du client fidèle
-    newClientFidele = ClientFidele(id, age, true, nom, adresse, numTelephone, adresseMail, liste, 0, sexe);
+    ClientFidele newClientFidele(id, age, true, nom, adresse, numTelephone, adresseMail, liste, 0, sexe);
+    listeClientsFideles[newClientFidele.getId()] = newClientFidele; //Ajoute du client dans le dictionnaire clientFideles
+
     std::cout << "Client souscrit au programme fidélité !" << std::endl;
 
     // Suppression de l'ancien client si nécessaire

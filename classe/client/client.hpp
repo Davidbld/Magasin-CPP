@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 class Client {
 protected:
@@ -15,8 +16,8 @@ public:
     Client(int id, int age);
 
     // Méthodes
-    virtual void acheter();
-    void souscrireFidelite(int &tempIdClient, class ClientFidele &newClientFidele, Client *oldClient);
+    virtual void acheter(int tempId, Produit produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele);
+    void souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> listeClientsFideles, Client *oldClient);
 
     // Getters et Setters
     void setAge(int age);
@@ -56,7 +57,7 @@ public:
                  const std::vector<std::string> &listeAchats, int pointsFidelite, TypeSexe sexe);
 
     // Méthodes
-    void acheter() override;
+    void acheter(int tempId, Produit produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele) override;
 
     // Getters et Setters
     void setNom(const std::string &nom);

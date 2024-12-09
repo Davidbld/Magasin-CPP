@@ -27,4 +27,4 @@ Ce projet étant fait dans un cadre universitaire, il y a certaines contraintes 
     - Contenir des pointeurs, méthodes constantes, transmissions par valeurs et références justifiées.
         - [**IMPLÉMENTÉ DANS VENTE**]
 - Présence d’au moins une méthode virtuelle dans l’application.
-    - [**IMPLÉMENTÉ DANS : ARTICLES/ALCOOL/ALIMENTAIRE**]
+    - [**IMPLÉMENTÉ DANS : Client/ClientFidele**]

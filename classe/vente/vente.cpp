@@ -4,7 +4,7 @@
 #include <iostream>
 
 // Constructeur
-Vente::Vente(const Produit& produit, int prix, int quantite, const std::string& dateVente)
+Vente::Vente(const Produit& produit, double prix, int quantite, const std::string& dateVente)
     : m_produit(produit), m_prixTTC(prix), m_quantite(quantite), m_dateVente(dateVente) {
     // Vérification des entrées
     if (m_quantite <= 0) {
@@ -18,13 +18,13 @@ Vente::Vente(const Produit& produit, int prix, int quantite, const std::string& 
 }
 
 // Setters et getters
-void Vente::setPrixTTC(int prixTTC) {
+void Vente::setPrixTTC(double prixTTC) {
     if (prixTTC < 0) {
         throw std::invalid_argument("Le prix TTC ne peut pas être négatif.");
     }
     m_prixTTC = prixTTC;
 }
-int Vente::getPrixTTC() const {
+double Vente::getPrixTTC() const {
     return m_prixTTC;
 }
 
@@ -54,6 +54,7 @@ void Vente::ecrireDansFichier(std::ostream& fichier) const {
     fichier << "Produit : " << m_produit.getNomProduit() << "\n";
     fichier << "Prix TTC : " << m_prixTTC << "\n";
     fichier << "Quantité : " << m_quantite << "\n";
+    fichier << "Prix total : " << m_quantite*m_prixTTC << "\n";
     fichier << "Date : " << m_dateVente << "\n";
     fichier << "-------------------------\n";
 }

@@ -3,30 +3,42 @@
 
 #include <string>
 #include <iostream>
+#include "../produit/produit.hpp"
 
 class Commande{
 //Attribus
 private :
+    int m_idCommande=0;
+    Produit m_produit;           // Produit associé à la commande
     int m_delaiLivraison=0;
-    std::string m_nomProduit="";
-    int m_codeProduit=0;
     int m_quantiteProduit=0;
+    enum class m_statutCommande{
+        EnCours,
+        Validee,
+        Annulee,
+    };
+    m_statutCommande m_statut = m_statutCommande::EnCours; // Catégorie par défaut
+    std::string m_date;
 
 public : 
 //Constructeur
-    Commande(int delaiLivraison, std::string nomProduit, int codeProduit, int quantiteProduit);
+    Commande(int idCommande, int delaiLivraison, Produit produit, int quantiteProduit, m_statutCommande statut, std::string date);
 //Getters and Setters
     void setDelaiLivraison(int delaiLivraison);
     int getDelaiLivraison() const;
 
-    void setNomProduit(const std::string& nomProduit);
-    const std::string& getNomProduit() const;
-
-    void setCodeProduit(int codeProduit);
-    int getCodeProduit() const;
-
     void setQuantiteProduit(int quantiteProduit);
     int getQuantiteProduit() const;
+
+    void setIdCommande(int idCommande);
+    int getIdCommande() const;
+
+    void setStatutCommande(m_statutCommande statut);
+    m_statutCommande getStatut() const;
+
+    void setDateCommande(const std::string& date);
+    const std::string& getDateCommande() const;
+
 //Methodes
     void creerCommande();
     void validerCommande();

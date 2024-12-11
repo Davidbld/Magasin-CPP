@@ -1,4 +1,4 @@
-/* Gère les commandes clients :
+/* Gère les commandes fournisseur :
 - Délais de livraison estimée
 - Nom du produit
 - Code du produit

@@ -28,7 +28,7 @@ private :
 
 public : 
     //Constructeur
-    Produit(int prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit);
+    Produit(int prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit, int stock);
 
     // Getters et Setters
 

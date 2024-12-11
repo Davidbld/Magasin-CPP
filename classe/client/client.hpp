@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "../produit/produit.hpp"
+class ClientFidele; //ici on informe la class client que la class ClientFidele existe bien, pour qu'il puisse l'utiliser
 
 class Client {
 protected:
@@ -18,6 +20,7 @@ public:
     // Méthodes
     virtual void acheter(int tempId, Produit produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele);
     void souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> listeClientsFideles, Client *oldClient);
+    bool operator<(int ageLimite) const; //surcharge de l'opérateur
 
     // Getters et Setters
     void setAge(int age);
@@ -52,6 +55,7 @@ private:
 
 public:
     // Constructeurs
+    ClientFidele(); //Constructeur par défaut
     ClientFidele(int id, int age, bool fidelite, const std::string &nom, const std::string &adresse, 
                  const std::string &numTelephone, const std::string &adresseMail, 
                  const std::vector<std::string> &listeAchats, int pointsFidelite, TypeSexe sexe);

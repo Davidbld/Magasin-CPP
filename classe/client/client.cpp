@@ -18,7 +18,7 @@ Pour un client fidèlé :
 #include <cctype>
 #include <vector>
 #include <string>
-#include "classe/vente/vente.hpp"
+#include "../vente/vente.hpp"
 
 // Définitions des classes Client et ClientFidele
 
@@ -26,6 +26,11 @@ Client::Client(int id, int age) : m_id(id), m_age(age)
 {
     assert(id >= 0 && age >= 0 && "ID et âge doivent être des entiers positifs.");
 }
+
+ClientFidele::ClientFidele()
+    : Client(0,0), // Appelle le constructeur par défaut de la classe parent
+      m_fidelite(false), m_nom(""),
+      m_adresse(""), m_adresseMail(""), m_listeAchats(), m_pointsFidelite(0), m_sexe(TypeSexe::NonSpecifie) {}
 
 ClientFidele::ClientFidele(int id, int age, bool fidelite, const std::string &nom,
                            const std::string &adresse, const std::string &numTelephone,
@@ -53,6 +58,10 @@ ClientFidele::ClientFidele(int id, int age, bool fidelite, const std::string &no
 
 // Méthodes
 
+bool Client::operator<(int ageLimite)const{
+    return m_age<ageLimite;
+}
+
 void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
 {
     int age;
@@ -69,7 +78,7 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
     std::string categorie = produit.getCategorieAsString();
 
     //Vérification de l'âge du client
-    if (categorie == "Alcool" && age < 18){
+    if (categorie == "Alcool" && tempClient < 18){ //surcharge d'opérateur
         std::cout << "Vous devez avoir 18 ans pour acheter de l'alcool." << std::endl;
         return; 
     }
@@ -101,15 +110,17 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
 
     if(souscription == "Oui"){
         Client::souscrireFidelite(tempId, listeClientsFideles, &tempClient);
-        // TODO : Ajouter l'achat à la liste d'achat du nouveau client fidèle créé
-        // TODO : ajouter les points de fidelité correspondant à l'achat (je vois comment faire mais manque de temps sur le moment)
+        ClientFidele& newClient = listeClientsFideles[tempId+1];
+        std::vector<std::string> listeAchats = newClient.getListeAchats();
+        listeAchats.push_back(std::to_string(quantiteAchetee)+","+produit.getNomProduit()+","+date);    //Ajouter l'achat à la liste d'achat du nouveau client fidèle créé
+        newClient.setPointsFidelite(static_cast<int>(std::floor(prixTTC)));                              //ajouter les points de fidelité correspondant à l'achat
     }
 
 }
 
 void ClientFidele::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
 {
-    ClientFidele client = listeClientsFideles[idClientFidele];
+    ClientFidele& client = listeClientsFideles[idClientFidele]; //Passage par référence pour pouvoir directement modifier dans la liste
 
     int age = client.getAge();
 

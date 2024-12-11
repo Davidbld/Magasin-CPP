@@ -5,7 +5,7 @@ La vente avec réduction se fait avec la méthode virtuelle
 #define VENTE_HPP
 
 #include <string>
-#include "classe/produit/produit.hpp"
+#include "../produit/produit.hpp"
 
 class Vente {
 private:

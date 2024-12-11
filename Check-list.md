@@ -19,6 +19,7 @@ Ce projet étant fait dans un cadre universitaire, il y a certaines contraintes 
         - operator==()
         - operator>()
         - operator<()
+        - surcharge d'opérateur implentée dans la méthode Client::acheter
         - [**À FAIRE**]
     - Au moins une relation d’association, de composition, d’agrégation ou d'héritage.
         - Le "*type*" de lien choisi doit être implémenté un minimum de 2 fois.

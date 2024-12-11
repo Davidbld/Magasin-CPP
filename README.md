@@ -9,7 +9,7 @@ Nous avons cherché, dans le laps de temps qui nous était imparti, à concevoir
 Ce système de gestion fictif repose sur plusieurs classes : 
 
 1. **La classe "*Commande*" :**
-   - Permet de répertorier les commandes des clients avec les informations suivantes :
+   - Permet de répertorier les commandes auprès des fournisseurs avec les informations suivantes :
      - Délai de livraison estimé.
      - Nom des produits.
      - Code des produits.

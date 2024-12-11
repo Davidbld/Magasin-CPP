@@ -7,9 +7,10 @@
 
 #include "commande.hpp"
 #include <regex>
+#include <vector>
 
 // Constructeur
-Commande::Commande(int idCommande, int delaiLivraison, Produit produit, int quantiteProduit, m_statutCommande statut, std::string date)
+Commande::Commande(int idCommande, int delaiLivraison, Produit& produit, int quantiteProduit, m_statutCommande statut, std::string date)
     : m_produit(produit),
       m_delaiLivraison(delaiLivraison),
       m_quantiteProduit(quantiteProduit),
@@ -38,6 +39,14 @@ Commande::Commande(int idCommande, int delaiLivraison, Produit produit, int quan
       }
 
 // Getters et Setters
+
+void Commande::setProduit(Produit produit){
+    m_produit = produit;
+}
+
+Produit Commande::getProduit() const{
+    return m_produit;
+}
 
 void Commande::setDelaiLivraison(int delaiLivraison) {
     m_delaiLivraison = delaiLivraison;
@@ -84,6 +93,26 @@ const std::string& Commande::getDateCommande() const {
 }
 
 //Méthodes
+
+std::string Commande::getStatutAsString() const {
+    if (m_statut == m_statutCommande::EnCours) {
+        return "EnCours";
+    } else if (m_statut == m_statutCommande::Validee) {
+        return "Validee";
+    } else if (m_statut == m_statutCommande::Annulee) {
+        return "Non Annulee";
+    } else {
+        return "Inconnu";
+    }
+}
+
+void Commande::afficherCommande() const {
+    std::cout << "ID Commande : " << m_idCommande << "\n";
+    std::cout << "Délai de livraison : " << m_delaiLivraison << " jours\n";
+    std::cout << "Quantité : " << m_quantiteProduit << "\n";
+    std::cout << "Statut : " << getStatutAsString() << "\n";
+    std::cout << "Date : " << m_date << "\n";
+}
 
 void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, Produit>& listeProduits, int& tempId){
 
@@ -158,5 +187,74 @@ void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, P
             date);
 
         listeCommandes[idCommande] = newCommande;
+    }
+}
+
+void validerCommande(std::map<int, Commande>& listeCommandes){
+    std::vector<int>listeIdToValid;
+    std::cout << "Voici la liste des commandes en cours\n";
+    for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++){
+        if (it->second.getStatutAsString() == "EnCours"){
+            listeIdToValid.push_back(it->first);
+            it->second.afficherCommande();
+        }
+    }
+
+    if (listeIdToValid.empty()) {
+        std::cout << "Aucune commande en cours à valider.\n";
+        return;
+    }
+
+    int idToValid;
+    std::cout << "Quelle commande souhaitez-vous valider ? (Renseignez l'id de commande)";
+    std::cin >> idToValid;
+    bool dansListe = false;
+    for (int id : listeIdToValid){
+        if(id == idToValid){
+            dansListe = true;
+            break;
+        }
+    }
+    if(dansListe){
+        Commande& commande = listeCommandes[idToValid];
+        commande.setStatutCommande(Commande::m_statutCommande::Validee);
+        Produit produit = commande.getProduit();
+        produit.setStock(produit.getStock()+commande.getQuantiteProduit());
+        commande.setProduit(produit);
+
+        std::cout << "La commande a été validée." << std::endl;
+    }
+}
+
+void annulerCommande(std::map<int, Commande>& listeCommandes){
+    std::vector<int>listeToCancel;
+    std::cout << "Voici la liste des commandes en cours\n";
+    for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++){
+        if (it->second.getStatutAsString() == "EnCours"){
+            listeToCancel.push_back(it->first);
+            it->second.afficherCommande();
+        }
+    }
+
+    if (listeToCancel.empty()) {
+        std::cout << "Aucune commande en cours à annuler.\n";
+        return;
+    }
+
+    int idToCancel;
+    std::cout << "Quelle commande souhaitez-vous annuler ? (Renseignez l'id de commande)";
+    std::cin >> idToCancel;
+    bool dansListe = false;
+    for (int id : listeToCancel){
+        if(id == idToCancel){
+            dansListe = true;
+            break;
+        }
+    }
+    if(dansListe){
+        Commande& commande = listeCommandes[idToCancel];
+        commande.setStatutCommande(Commande::m_statutCommande::Annulee);
+
+        std::cout << "La commande a été Annulee." << std::endl;
     }
 }

@@ -25,9 +25,12 @@ enum m_statutCommande{
     std::string m_date;
 
 //Constructeur
-    Commande(int idCommande, int delaiLivraison, Produit produit, int quantiteProduit, m_statutCommande statut, std::string date);
+    Commande(int idCommande, int delaiLivraison, Produit& produit, int quantiteProduit, m_statutCommande statut, std::string date);
 
 //Getters and Setters
+    void setProduit(Produit produit);
+    Produit getProduit() const;
+
     void setDelaiLivraison(int delaiLivraison);
     int getDelaiLivraison() const;
 
@@ -45,9 +48,11 @@ enum m_statutCommande{
 
 //Methodes
 
+    std::string getStatutAsString() const;
+    void afficherCommande() const;
     void creerCommande(std::map<int, Commande>& listeCommandes, std::map<int, Produit>& listeProduits, int& tempId);
-    void validerCommande();
-    void annulerCommande();
+    void validerCommande(std::map<int, Commande>& listeCommandes);
+    void annulerCommande(std::map<int, Commande>& listeCommandes);
 };
 
 #endif

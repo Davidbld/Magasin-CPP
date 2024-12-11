@@ -9,7 +9,7 @@ Les produits sont divisés en plusieurs catégorie :
 #include <cassert>
 
 // Constructeur
-Produit::Produit(int prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit, int stock)
+Produit::Produit(double prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit, int stock)
     : m_prixHT(prixHT), m_typeCategorie(categorie), m_stock(0) {
     // Vérification des assertions pour valider les entrées
     assert(prixHT >= 0 && "Le prix HT ne peut pas être négatif.");
@@ -26,7 +26,7 @@ Produit::Produit(int prixHT, m_categorie categorie, long int codeProduit, std::s
 
 
 // Setters
-void Produit::setPrixHT(int prixHT) {
+void Produit::setPrixHT(double prixHT) {
     m_prixHT = prixHT;
 }
 
@@ -38,7 +38,7 @@ void Produit::setCategorie(m_categorie categorie) {
     m_typeCategorie = categorie;
 }
 
-void Produit::setCodeProduit(std::string codeProduit) {
+void Produit::setCodeProduit(long int codeProduit) {
     m_codeProduit = codeProduit;
 }
 
@@ -47,7 +47,7 @@ void Produit::setStock(int stock) {
 }
 
 // Getters
-int Produit::getPrixHT() const {
+double Produit::getPrixHT() const {
     return m_prixHT;
 }
 
@@ -59,7 +59,7 @@ Produit::m_categorie Produit::getCategorie() const {
     return m_typeCategorie;
 }
 
-std::string Produit::getCodeProduit() const {
+long int Produit::getCodeProduit() const {
     return m_codeProduit;
 }
 

@@ -82,3 +82,81 @@ void Commande::setDateCommande(const std::string& date) {
 const std::string& Commande::getDateCommande() const {
     return m_date;
 }
+
+//Méthodes
+
+void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, Produit>& listeProduits, int& tempId){
+
+    int idCommande = ++tempId;
+
+    std::string date;
+    std::cout << "Entrez la date au format jj/mm/aaaa ";
+    std::cin >> date;
+
+    int delaiLivraison;
+    std::cout << "Entrez le délai de livraison (nombre de jours) ";
+    std::cin >> delaiLivraison;
+
+    int quantiteCommandee;
+    std::cout << "Entrez la quantite du produit commandé";
+    std::cin >> quantiteCommandee;
+
+    long int codeProduit;
+    std::cout << "Entrez le code produit du produit ";
+    std::cin >> codeProduit;
+    
+    if (listeProduits.count(codeProduit) > 0 ){
+        Commande newCommande(
+            idCommande, 
+            delaiLivraison, 
+            listeProduits[codeProduit], 
+            quantiteCommandee, 
+            Commande::m_statutCommande::EnCours, 
+            date);
+
+        listeCommandes[idCommande] = newCommande;
+    }
+    else{
+        std::cout<<"Le produit n'existe pas dans la banque de produit, vous devez créer un nouveau produit" << std::endl;
+
+        int stock = 0;
+
+        double prix;
+        std::cout << "Entrez le prixHT du produit";
+        std::cin >> prix;
+
+        Produit::m_categorie categorie;
+        std::string input;
+
+        std::cout << "Entrez la catégorie du produit (Alcool/Alimentaire/nonAlimentaire): ";
+        std::cin >> input;
+
+        if (input == "Alcool") {
+            categorie = Produit::m_categorie::Alcool;
+        } else if (input == "Alimentaire") {
+            categorie = Produit::m_categorie::Alimentaire;
+        } else if (input == "nonAlimentaire") {
+            categorie = Produit::m_categorie::nonAlimentaire;
+        } else {
+            std::cout << "Erreur : Catégorie invalide !" << std::endl;
+            categorie = Produit::m_categorie::nonAlimentaire; // Valeur par défaut
+        }
+
+        std::string nom;
+        std::cout << "Entrez le nom du produit";
+        std::cin >> nom;
+
+        Produit newProduit(prix, categorie, codeProduit, nom, stock);
+        listeProduits[codeProduit] = newProduit;
+
+        Commande newCommande(
+            idCommande, 
+            delaiLivraison, 
+            newProduit, 
+            quantiteCommandee, 
+            Commande::m_statutCommande::EnCours, 
+            date);
+
+        listeCommandes[idCommande] = newCommande;
+    }
+}

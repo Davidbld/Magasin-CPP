@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include "../produit/produit.hpp"
+#include "../produit/produit.cpp"
 
 class Commande{
 //Attribus
@@ -12,7 +12,11 @@ private :
     Produit m_produit;           // Produit associé à la commande
     int m_delaiLivraison=0;
     int m_quantiteProduit=0;
-    enum class m_statutCommande{
+
+public : 
+
+//attribut enum
+enum m_statutCommande{
         EnCours,
         Validee,
         Annulee,
@@ -20,9 +24,9 @@ private :
     m_statutCommande m_statut = m_statutCommande::EnCours; // Catégorie par défaut
     std::string m_date;
 
-public : 
 //Constructeur
     Commande(int idCommande, int delaiLivraison, Produit produit, int quantiteProduit, m_statutCommande statut, std::string date);
+
 //Getters and Setters
     void setDelaiLivraison(int delaiLivraison);
     int getDelaiLivraison() const;
@@ -40,7 +44,8 @@ public :
     const std::string& getDateCommande() const;
 
 //Methodes
-    void creerCommande();
+
+    void creerCommande(std::map<int, Commande>& listeCommandes, std::map<int, Produit>& listeProduits, int& tempId);
     void validerCommande();
     void annulerCommande();
 };

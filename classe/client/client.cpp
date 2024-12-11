@@ -18,7 +18,7 @@ Pour un client fidèlé :
 #include <cctype>
 #include <vector>
 #include <string>
-#include "../vente/vente.hpp"
+#include "../vente/vente.cpp"
 
 // Définitions des classes Client et ClientFidele
 

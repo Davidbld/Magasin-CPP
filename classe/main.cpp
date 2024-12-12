@@ -31,7 +31,7 @@ int main(){
     listeProduits[biscuit.getCodeProduit()] = biscuit;
 
 
-    std::string input = 0;
+    std::string input = "0";
     while (input!="STOP")
     {
         //1.Afficher les produits disponibles

@@ -9,8 +9,11 @@ Les produits sont divisés en plusieurs catégorie :
 #include <cassert>
 
 // Constructeur
+Produit::Produit()
+    :m_prixHT(0), m_typeCategorie(Produit::m_categorie::nonAlimentaire), m_nomProduit(""), m_stock(0){}
+
 Produit::Produit(double prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit, int stock)
-    : m_prixHT(prixHT), m_typeCategorie(categorie), m_stock(0) {
+    : m_prixHT(prixHT), m_typeCategorie(categorie),m_nomProduit(nomProduit), m_stock(stock) {
     // Vérification des assertions pour valider les entrées
     assert(prixHT >= 0 && "Le prix HT ne peut pas être négatif.");
     assert(

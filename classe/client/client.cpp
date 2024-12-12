@@ -18,7 +18,7 @@ Pour un client fidèlé :
 #include <cctype>
 #include <vector>
 #include <string>
-#include "../vente/vente.cpp"
+#include "../vente/vente.hpp"
 
 // Définitions des classes Client et ClientFidele
 
@@ -64,6 +64,12 @@ bool Client::operator<(int ageLimite)const{
 
 void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
 {
+    // Vérification du stock disponible
+    if (quantiteAchetee > produit.getStock()) {
+        std::cout << "Stock insuffisant pour le produit : " << produit.getNomProduit() << std::endl;
+        return; // Achat annulé
+    }
+
     int age;
     std::cout << "Entrez âge : ";
     std::cin >> age;
@@ -121,6 +127,12 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
 void ClientFidele::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
 {
     ClientFidele& client = listeClientsFideles[idClientFidele]; //Passage par référence pour pouvoir directement modifier dans la liste
+
+    // Vérification du stock disponible
+    if (quantiteAchetee > produit.getStock()) {
+        std::cout << "Stock insuffisant pour le produit : " << produit.getNomProduit() << std::endl;
+        return; // Achat annulé
+    }
 
     int age = client.getAge();
 

@@ -1,7 +1,8 @@
 // Agit comme le magasin
 
-#include"classe/client/client.cpp"
-#include"classe/commande/commande.cpp"
+#include"client/client.cpp"
+#include"commande/commande.cpp"
+#include <fstream>
 
 int tempId=0; //Gestion de l'attribution des identifiants
 
@@ -13,3 +14,14 @@ std::map<long int, Produit> listeProduits; // Gestion des produits (clé : id, v
 
 //Les ventes sont renseignées dans un fichier annexe, via la méthode 'EcrireDansFichier'
 
+
+int main(){
+    std::ofstream fichierVentes("Ventes.txt", std::ios::app);
+    Client client(0,0);
+
+    Produit eau(2, Produit::m_categorie::nonAlimentaire, 1, "eau", 40);
+    client.acheter(tempId, eau, fichierVentes, 2, listeClientFideles, 0);
+
+
+    return 0;
+}

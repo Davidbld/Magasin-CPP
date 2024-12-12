@@ -58,6 +58,18 @@ ClientFidele::ClientFidele(int id, int age, bool fidelite, const std::string &no
 
 // Méthodes
 
+std::string ClientFidele::getSexeAsString() const {
+    if (m_sexe == TypeSexe::Homme) {
+        return "Homme";
+    } else if (m_sexe == TypeSexe::Femme) {
+        return "Femme";
+    } else if (m_sexe == TypeSexe::NonSpecifie) {
+        return "Non Specifie";
+    } else {
+        return "Inconnu";
+    }
+}
+
 bool Client::operator<(int ageLimite)const{
     return m_age<ageLimite;
 }

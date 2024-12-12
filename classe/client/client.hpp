@@ -61,6 +61,7 @@ public:
                  const std::vector<std::string> &listeAchats, int pointsFidelite, TypeSexe sexe);
 
     // Méthodes
+    std::string getSexeAsString() const;
     void acheter(int tempId, Produit produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele) override;
 
     // Getters et Setters

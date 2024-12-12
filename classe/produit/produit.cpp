@@ -13,7 +13,7 @@ Produit::Produit()
     :m_prixHT(0), m_typeCategorie(Produit::m_categorie::nonAlimentaire), m_nomProduit(""), m_stock(0){}
 
 Produit::Produit(double prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit, int stock)
-    : m_prixHT(prixHT), m_typeCategorie(categorie),m_nomProduit(nomProduit), m_stock(stock) {
+    : m_prixHT(prixHT), m_typeCategorie(categorie),m_nomProduit(nomProduit), m_stock(stock), m_codeProduit(codeProduit) {
     // Vérification des assertions pour valider les entrées
     assert(prixHT >= 0 && "Le prix HT ne peut pas être négatif.");
     assert(

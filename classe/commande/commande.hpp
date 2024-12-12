@@ -3,7 +3,8 @@
 
 #include <string>
 #include <iostream>
-#include "../produit/produit.cpp"
+#include <map>
+#include "../produit/produit.hpp"
 
 class Commande{
 //Attribus
@@ -25,6 +26,7 @@ enum m_statutCommande{
     std::string m_date;
 
 //Constructeur
+    Commande() = default;
     Commande(int idCommande, int delaiLivraison, Produit& produit, int quantiteProduit, m_statutCommande statut, std::string date);
 
 //Getters and Setters

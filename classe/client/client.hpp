@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../produit/produit.cpp"
+#include "../produit/produit.hpp"
 class ClientFidele; //ici on informe la class client que la class ClientFidele existe bien, pour qu'il puisse l'utiliser
 
 class Client {

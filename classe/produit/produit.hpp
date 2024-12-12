@@ -31,6 +31,7 @@ public :
     m_categorie m_typeCategorie = m_categorie::nonAlimentaire; // Catégorie par défaut
 
     //Constructeur
+    Produit() = default; // Ajout d'un constructeur par défaut
     Produit(double prixHT, m_categorie categorie, long int codeProduit, std::string nomProduit, int stock);
 
     // Getters et Setters

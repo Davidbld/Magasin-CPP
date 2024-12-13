@@ -24,13 +24,6 @@ void Vente::setPrixTTC(double prixTTC) {
     }
     m_prixTTC = prixTTC;
 }
-double Vente::getPrixHT() const {
-    return m_prixHT;
-}
-
-double Vente::getPrixTTC() const {
-    return m_prixTTC;
-}
 
 void Vente::setQuantite(int quantite) {
     if (quantite <= 0) {
@@ -56,7 +49,6 @@ const std::string& Vente::getDateVente() const {
 // Nouvelle méthode pour écrire les données dans un fichier
 void Vente::ecrireDansFichier(std::ostream& fichier) const {
     fichier << "Produit : " << m_produit.getNomProduit() << std::endl;
-    fichier << "Prix HT : " << m_prixHT << " €" << std::endl;
     fichier << "Prix TTC : " << m_prixTTC << " €" << std::endl;
     fichier << "Quantité : " << m_quantite << std::endl;
     fichier << "Prix total : " << m_quantite*m_prixTTC << " €" << std::endl;

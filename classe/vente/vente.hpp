@@ -20,6 +20,7 @@ public:
     Vente(const Produit& produit, double prix, int quantite, const std::string& dateVente);
 
     // Setters
+    void setPrixHT(double prixHT);
     void setPrixTTC(double prixTTC);
     void setQuantite(int quantite);
     void setDateVente(const std::string& dateVente);

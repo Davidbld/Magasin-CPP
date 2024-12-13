@@ -10,6 +10,7 @@ La vente avec réduction se fait avec la méthode virtuelle
 class Vente {
 private:
     Produit m_produit;           // Produit associé à la vente
+    double m_prixHT = 0;         // Prix hors taxe du produit
     double m_prixTTC = 0;        // Prix total TTC
     int m_quantite = 0;          // Quantité vendue
     std::string m_dateVente;     // Date de la vente (format jj/mm/aaaa)
@@ -25,6 +26,7 @@ public:
 
     // Getters
     double getPrixTTC() const;
+    double getPrixHT() const;
     int getQuantite() const;
     const std::string& getDateVente() const;
 

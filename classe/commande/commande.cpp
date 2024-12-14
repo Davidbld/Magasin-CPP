@@ -10,6 +10,11 @@
 #include <vector>
 
 // Constructeur
+Commande::Commande() : m_idCommande(0), m_delaiLivraison(0), m_quantiteProduit(0), m_statut(m_statutCommande::EnCours), m_date("") {
+    }
+
+Commande::Commande(int idCommande) : m_idCommande(idCommande){}
+
 Commande::Commande(int idCommande, int delaiLivraison, Produit& produit, int quantiteProduit, m_statutCommande statut, std::string date)
     : m_produit(produit),
       m_delaiLivraison(delaiLivraison),
@@ -114,7 +119,7 @@ void Commande::afficherCommande() const {
     std::cout << "Date : " << m_date << "\n";
 }
 
-void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, Produit>& listeProduits, int& tempId){
+void Commande::creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, Produit>& listeProduits, int& tempId){
 
     int idCommande = ++tempId;
 
@@ -151,13 +156,13 @@ void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, P
         int stock = 0;
 
         double prix;
-        std::cout << "Entrez le prixHT du produit";
+        std::cout << "Entrez le prixHT du produit :\n";
         std::cin >> prix;
 
         Produit::m_categorie categorie;
         std::string input;
 
-        std::cout << "Entrez la catégorie du produit (Alcool/Alimentaire/nonAlimentaire): ";
+        std::cout << "Entrez la catégorie du produit (Alcool/Alimentaire/nonAlimentaire): \n";
         std::cin >> input;
 
         if (input == "Alcool") {
@@ -172,7 +177,7 @@ void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, P
         }
 
         std::string nom;
-        std::cout << "Entrez le nom du produit";
+        std::cout << "Entrez le nom du produit : \n";
         std::cin >> nom;
 
         Produit newProduit(prix, categorie, codeProduit, nom, stock);

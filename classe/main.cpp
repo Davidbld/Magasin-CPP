@@ -203,9 +203,15 @@ int main(){
             }
 
         }
-        
 
         //5.Effectuer une commande fournisseur
+        if (input == "5")
+        {
+            Commande newCommande(0);
+
+            newCommande.creerCommande(listeCommandes, listeProduits, tempId);
+        }
+        
         //6.Souscrire un client
         /*7.Afficher les commandes:
             -toutes les commandes
@@ -220,6 +226,7 @@ int main(){
           << "2 pour afficher les clients possédant une carte de fidélité.\n"
           << "3 pour enregistrer un achat.\n"
           << "4 pour enregistrer un achat d'un client fidèle.\n"
+          << "5 pour effectuer une commande auprès des fournisseurs.\n"
           << "STOP pour quitter \n"
           << "Veuillez entrer votre choix : ";
         std::cin >> input;

@@ -30,7 +30,7 @@ public:
     const std::string& getDateVente() const;
 
     // Méthode pour écrire les données dans un fichier ou flux
-    void ecrireDansFichier(std::ostream& fichier, Produit produit) const;
+    void ecrireDansFichier(std::ostream& fichier, Produit produit, double remise) const;
 
     // Destructeur
     ~Vente() = default;

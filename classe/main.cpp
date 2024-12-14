@@ -20,6 +20,7 @@ int main(){
     std::ofstream fichierVentes("Ventes.txt", std::ios::app); //Initialisation fichier ventes
 
     //Initialisation de quelques produits (possibiltié d'en rajouter avec Commande)
+
     Produit pomme(2.0, Produit::m_categorie::Alimentaire, 101, "Pomme", 50);
     listeProduits[pomme.getCodeProduit()] = pomme;
 
@@ -137,6 +138,73 @@ int main(){
         }
         
         //4.Effectuer un achat d'un client ayant une carte de fidélité
+
+        if (input == "4")
+        {
+            std::cout << "Quel produit le client souhaite acheter ? (Insérer code produit)" << std::endl;
+            long int code;
+            std::cin >> code;
+            
+            Produit* produitAchete = nullptr;
+
+            bool produitTrouve = false;
+
+            for (auto it = listeProduits.begin(); it != listeProduits.end(); ++it){
+                if (it->second.getCodeProduit() == code)
+                {
+                    produitAchete = &(it->second);
+
+                    produitTrouve = true;
+                    break;
+                }
+                
+            }
+
+            if (!produitTrouve)
+            {
+                std::cout << "Aucun produit ne correspond à ce code." << std::endl;
+
+            }
+            
+            if (produitTrouve)
+            {   
+                int quantiteeAchetee;
+                std::cout << "Quelle quantité le client achète-t'il ? (Un entier est attendu)" << std::endl;
+                std::cin >> quantiteeAchetee;
+
+                int idClientFidele;
+                std::cout << "Quel est l'identifiant du client fidèle ?" << std::endl;
+                std::cin >> idClientFidele;
+
+                ClientFidele* clientFidele = nullptr;
+
+                bool clientTrouve = false;
+
+                for (auto it = listeClientFideles.begin(); it != listeClientFideles.end(); ++it){
+                    if (it->second.getId() == idClientFidele)
+                    {
+                        clientFidele = &(it->second);
+
+                        clientTrouve = true;
+                        break;
+                    }
+                }
+
+                if (!clientTrouve)
+                {
+                    std::cout << "Aucune carte de fidélité ne correspond à cet identifiant." << std::endl;
+                }
+                
+                if (clientTrouve)
+                {
+                    clientFidele->acheter(0, *produitAchete, fichierVentes, quantiteeAchetee, listeClientFideles, idClientFidele);
+                }
+
+            }
+
+        }
+        
+
         //5.Effectuer une commande fournisseur
         //6.Souscrire un client
         /*7.Afficher les commandes:
@@ -145,12 +213,13 @@ int main(){
             -commandes anulées
             -commandes validées
             */
+        //8. Afficher les achats d'un client fidèle
         
         std::cout << "Que voulez-vous faire ?\n"
           << "1 pour afficher les produits disponibles.\n"
           << "2 pour afficher les clients possédant une carte de fidélité.\n"
           << "3 pour enregistrer un achat.\n"
-          << "4 \n"
+          << "4 pour enregistrer un achat d'un client fidèle.\n"
           << "STOP pour quitter \n"
           << "Veuillez entrer votre choix : ";
         std::cin >> input;

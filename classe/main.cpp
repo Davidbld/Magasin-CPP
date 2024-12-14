@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 
-int tempId=0; //Gestion de l'attribution des identifiants
+int tempId=206; //Gestion de l'attribution des identifiants
 
 std::map<int, ClientFidele> listeClientFideles; // Gestion des clients fideles (clé : id, valeur : Constructeur ClientFidele)
 
@@ -22,12 +22,16 @@ int main(){
     //Initialisation de quelques produits (possibiltié d'en rajouter avec Commande)
     Produit pomme(2.0, Produit::m_categorie::Alimentaire, 101, "Pomme", 50);
     listeProduits[pomme.getCodeProduit()] = pomme;
+
     Produit shampoing(10.0, Produit::m_categorie::nonAlimentaire, 102, "Shampoing", 30);
     listeProduits[shampoing.getCodeProduit()] = shampoing;
+
     Produit pain(3.5, Produit::m_categorie::Alimentaire, 103, "Pain", 100);
     listeProduits[pain.getCodeProduit()] = pain;
+
     Produit vinRouge(20.0, Produit::m_categorie::Alcool, 104, "Vin Rouge", 25);
     listeProduits[vinRouge.getCodeProduit()] = vinRouge;
+    
     Produit biscuit(1.5, Produit::m_categorie::Alimentaire, 105, "Biscuit", 200);
     listeProduits[biscuit.getCodeProduit()] = biscuit;
 
@@ -85,13 +89,53 @@ int main(){
                             << ", Age : " << it->second.getAge()
                             << ", Sexe : " << it->second.getSexeAsString()
                             << ", Points de fidélité : " << it->second.getPointsFidelite()
-                            << ", Numéro de téléphone " << it->second.getNumTelephone()
-                            << ", Adresse Mail " << it->second.getAdresseMail()
-                            << ", Adresse" << it->second.getAdresse() <<"\n";
+                            << ", Numéro de téléphone : " << it->second.getNumTelephone()
+                            << ", Adresse Mail : " << it->second.getAdresseMail()
+                            << ", Adresse : " << it->second.getAdresse() <<"\n";
             }
             std::cout   << "------------------------------"<< "\n";
         }
         //3.Effectuer un achat d'un client classique
+        if (input == "3")
+        {     
+            std::cout << "Quel produit le client souhaite acheter ? (Insérer code produit)" << std::endl;
+            long int code;
+            std::cin >> code;
+            
+            Produit* produitAchete = nullptr;
+
+            bool produitTrouve = false;
+
+            for (auto it = listeProduits.begin(); it != listeProduits.end(); ++it){
+                if (it->second.getCodeProduit() == code)
+                {
+                    produitAchete = &(it->second);
+
+                    produitTrouve = true;
+                    break;
+                }
+                
+            }
+
+            if (!produitTrouve)
+            {
+                std::cout << "Désolé, aucun produit ne correspond à ce code." << std::endl;
+
+            }
+            
+            if (produitTrouve)
+            {   
+                int quantiteeAchetee;
+                std::cout << "Quelle quantité le client achète-t'il ? (Un entier est attendu)" << std::endl;
+                std::cin >> quantiteeAchetee;
+
+                Client client(0,0);
+                client.acheter(tempId, *produitAchete, fichierVentes, quantiteeAchetee, listeClientFideles,0);
+            }
+            
+            
+        }
+        
         //4.Effectuer un achat d'un client ayant une carte de fidélité
         //5.Effectuer une commande fournisseur
         //6.Souscrire un client
@@ -104,8 +148,8 @@ int main(){
         
         std::cout << "Que voulez-vous faire ?\n"
           << "1 pour afficher les produits disponibles.\n"
-          << "2 pour afficher les clients possédant une carte de fidélité\n"
-          << "3 \n"
+          << "2 pour afficher les clients possédant une carte de fidélité.\n"
+          << "3 pour enregistrer un achat.\n"
           << "4 \n"
           << "STOP pour quitter \n"
           << "Veuillez entrer votre choix : ";

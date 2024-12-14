@@ -18,8 +18,8 @@ public:
     Client(int id, int age);
 
     // Méthodes
-    virtual void acheter(int tempId, Produit produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele);
-    void souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> listeClientsFideles, Client *oldClient);
+    virtual void acheter(int tempId, Produit& produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele>& listeClientsFideles, int idClientFidele);
+    void souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele>& listeClientsFideles, Client *oldClient);
     bool operator<(int ageLimite) const; //surcharge de l'opérateur
 
     // Getters et Setters
@@ -62,7 +62,7 @@ public:
 
     // Méthodes
     std::string getSexeAsString() const;
-    void acheter(int tempId, Produit produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele) override;
+    void acheter(int tempId, Produit& produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele>& listeClientsFideles, int idClientFidele) override;
 
     // Getters et Setters
     void setNom(const std::string &nom);
@@ -81,7 +81,7 @@ public:
     const std::string &getAdresseMail() const;
 
     void setListeAchats(const std::vector<std::string> &listeAchats);
-    const std::vector<std::string> &getListeAchats() const;
+    std::vector<std::string> &getListeAchats();
 
     void setPointsFidelite(int points);
     int getPointsFidelite() const;

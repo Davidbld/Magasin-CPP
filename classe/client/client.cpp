@@ -74,7 +74,7 @@ bool Client::operator<(int ageLimite)const{
     return m_age<ageLimite;
 }
 
-void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
+void Client::acheter(int tempId, Produit& produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele>& listeClientsFideles, int idClientFidele)
 {
     // Vérification du stock disponible
     if (quantiteAchetee > produit.getStock()) {
@@ -83,12 +83,8 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
     }
 
     int age;
-    std::cout << "Entrez âge : ";
+    std::cout << "Entrez âge : \n";
     std::cin >> age;
-
-    std::string date;
-    std::cout << "Entre la date. (dd/mm/aaaa)";
-    std::cin >> date;
 
     Client tempClient(tempId+1, age);
     tempId+=1;
@@ -100,6 +96,10 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
         std::cout << "Vous devez avoir 18 ans pour acheter de l'alcool." << std::endl;
         return; 
     }
+
+    std::string date;
+    std::cout << "Entre la date. (dd/mm/aaaa) :\n";
+    std::cin >> date;
 
     double TVA  = 0;
 
@@ -117,7 +117,7 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
 
     //Renseignement de la vente dans le fichier
     Vente tempVente(produit, prixTTC, quantiteAchetee, date);
-    tempVente.ecrireDansFichier(fichierVentes);
+    tempVente.ecrireDansFichier(fichierVentes, produit);
 
     //Mise à jour du stock correspondant au produit vendu
     produit.setStock(produit.getStock()-quantiteAchetee);
@@ -129,14 +129,14 @@ void Client::acheter(int tempId, Produit produit, std::ostream& fichierVentes, i
     if(souscription == "Oui"){
         Client::souscrireFidelite(tempId, listeClientsFideles, &tempClient);
         ClientFidele& newClient = listeClientsFideles[tempId+1];
-        std::vector<std::string> listeAchats = newClient.getListeAchats();
+        std::vector<std::string>& listeAchats = newClient.getListeAchats();
         listeAchats.push_back(std::to_string(quantiteAchetee)+","+produit.getNomProduit()+","+date);    //Ajouter l'achat à la liste d'achat du nouveau client fidèle créé
         newClient.setPointsFidelite(static_cast<int>(std::floor(prixTTC)));                              //ajouter les points de fidelité correspondant à l'achat
     }
 
 }
 
-void ClientFidele::acheter(int tempId, Produit produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele> listeClientsFideles, int idClientFidele)
+void ClientFidele::acheter(int tempId, Produit& produit, std::ostream& fichierVentes, int quantiteAchetee, std::map<int, ClientFidele>& listeClientsFideles, int idClientFidele)
 {
     ClientFidele& client = listeClientsFideles[idClientFidele]; //Passage par référence pour pouvoir directement modifier dans la liste
 
@@ -153,12 +153,6 @@ void ClientFidele::acheter(int tempId, Produit produit, std::ostream& fichierVen
     std::cin >> date;
 
     std::string categorie = produit.getCategorieAsString();
-
-    //Vérification de l'âge du client
-    if (categorie == "Alcool" && age < 18){
-        std::cout << "Vous devez avoir 18 ans pour acheter de l'alcool." << std::endl;
-        return; 
-    }
 
     //Vérification de l'âge du client
     if (categorie == "Alcool" && age < 18){
@@ -196,21 +190,22 @@ void ClientFidele::acheter(int tempId, Produit produit, std::ostream& fichierVen
 
     //Renseignement de la vente dans le fichier
     Vente tempVente(produit, prixTTC, quantiteAchetee, date);
-    tempVente.ecrireDansFichier(fichierVentes);
+    tempVente.ecrireDansFichier(fichierVentes, produit);
 
     //Mise à jour du stock correspondant au produit vendu
     produit.setStock(produit.getStock()-quantiteAchetee);
 
 }
 
-void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> listeClientsFideles, Client *oldClient)
+void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele>& listeClientsFideles, Client *oldClient)
 {
     int id = ++tempIdClient;
 
     // Saisie des informations du client
     std::string nom;
+    std::cin.ignore();
     std::cout << "Entrez Nom Prénom : ";
-    std::cin >> nom;
+    std::getline(std::cin, nom);
 
     int age;
     std::cout << "Entrez âge : ";
@@ -218,7 +213,8 @@ void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> li
 
     std::string adresse;
     std::cout << "Entrez adresse : ";
-    std::cin >> adresse;
+    std::cin.ignore();
+    std::getline(std::cin, adresse);
 
     std::string numTelephone;
     std::cout << "Entrez numéro de téléphone : ";
@@ -253,12 +249,6 @@ void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> li
     listeClientsFideles[newClientFidele.getId()] = newClientFidele; //Ajoute du client dans le dictionnaire clientFideles
 
     std::cout << "Client souscrit au programme fidélité !" << std::endl;
-
-    // Suppression de l'ancien client si nécessaire
-    if (oldClient != nullptr)
-    {
-        delete oldClient;
-    }
 }
 
 // Getters et setters
@@ -340,7 +330,7 @@ void ClientFidele::setListeAchats(const std::vector<std::string> &listeAchats)
     m_listeAchats = listeAchats;
 }
 
-const std::vector<std::string> &ClientFidele::getListeAchats() const
+std::vector<std::string> &ClientFidele::getListeAchats()
 {
     return m_listeAchats;
 }

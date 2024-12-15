@@ -19,7 +19,7 @@ public:
 
     // Méthodes
     virtual void acheter(int tempId, Produit& produit, std::ostream& fichier, int quantiteAchetee, std::map<int, ClientFidele>& listeClientsFideles, int idClientFidele);
-    void souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele>& listeClientsFideles, Client *oldClient);
+    void souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele>& listeClientsFideles);
     bool operator<(int ageLimite) const; //surcharge de l'opérateur
 
     // Getters et Setters

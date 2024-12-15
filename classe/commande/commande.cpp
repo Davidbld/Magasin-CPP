@@ -10,108 +10,134 @@
 #include <vector>
 
 // Constructeur
-Commande::Commande() : m_idCommande(0), m_delaiLivraison(0), m_quantiteProduit(0), m_statut(m_statutCommande::EnCours), m_date("") {
-    }
+Commande::Commande() : m_idCommande(0), m_delaiLivraison(0), m_quantiteProduit(0), m_statut(m_statutCommande::EnCours), m_date("")
+{
+}
 
-Commande::Commande(int idCommande) : m_idCommande(idCommande){}
+Commande::Commande(int idCommande) : m_idCommande(idCommande) {}
 
-Commande::Commande(int idCommande, int delaiLivraison, Produit& produit, int quantiteProduit, m_statutCommande statut, std::string date)
+Commande::Commande(int idCommande, int delaiLivraison, Produit &produit, int quantiteProduit, m_statutCommande statut, std::string date)
     : m_produit(produit),
       m_delaiLivraison(delaiLivraison),
       m_quantiteProduit(quantiteProduit),
       m_idCommande(idCommande),
       m_statut(statut),
       m_date(date)
-       {
-    //Verification des entrées
-    if(m_delaiLivraison<0){
+{
+    // Verification des entrées
+    if (m_delaiLivraison < 0)
+    {
         throw std::invalid_argument("Le délai de livraison doit être supérieur ou égal à 0 (jours)");
     }
-    if (m_quantiteProduit <= 0) {
+    if (m_quantiteProduit <= 0)
+    {
         throw std::invalid_argument("La quantité doit être supérieure à 0.");
     }
     std::regex dateRegex(R"(^\d{2}/\d{2}/\d{4}$)");
-    if (!std::regex_match(m_date, dateRegex)) {
+    if (!std::regex_match(m_date, dateRegex))
+    {
         throw std::invalid_argument("La date doit être au format jj/mm/aaaa.");
     }
-    if(
+    if (
         statut != m_statutCommande::EnCours &&
         statut != m_statutCommande::Validee &&
-        statut != m_statutCommande::Annulee )
-        {
-            throw std::invalid_argument("Le statut doit être EnCours, Validee, ou Annulee");
-        }
-      }
+        statut != m_statutCommande::Annulee)
+    {
+        throw std::invalid_argument("Le statut doit être EnCours, Validee, ou Annulee");
+    }
+}
 
 // Getters et Setters
 
-void Commande::setProduit(Produit produit){
+void Commande::setProduit(Produit produit)
+{
     m_produit = produit;
 }
 
-Produit Commande::getProduit() const{
+Produit Commande::getProduit() const
+{
     return m_produit;
 }
 
-void Commande::setDelaiLivraison(int delaiLivraison) {
+void Commande::setDelaiLivraison(int delaiLivraison)
+{
     m_delaiLivraison = delaiLivraison;
 }
 
-int Commande::getDelaiLivraison() const {
+int Commande::getDelaiLivraison() const
+{
     return m_delaiLivraison;
 }
 
-void Commande::setQuantiteProduit(int quantiteProduit) {
+void Commande::setQuantiteProduit(int quantiteProduit)
+{
     m_quantiteProduit = quantiteProduit;
 }
 
-int Commande::getQuantiteProduit() const {
+int Commande::getQuantiteProduit() const
+{
     return m_quantiteProduit;
 }
 
-void Commande::setIdCommande(int IdCommande){
+void Commande::setIdCommande(int IdCommande)
+{
     m_idCommande = IdCommande;
 }
 
-int Commande::getIdCommande() const {
+int Commande::getIdCommande() const
+{
     return m_idCommande;
 }
 
-void Commande::setStatutCommande(m_statutCommande statut){
-    m_statut=statut;
+void Commande::setStatutCommande(m_statutCommande statut)
+{
+    m_statut = statut;
 }
 
-Commande::m_statutCommande Commande::getStatut() const {
+Commande::m_statutCommande Commande::getStatut() const
+{
     return m_statut;
 }
 
-void Commande::setDateCommande(const std::string& date) {
+void Commande::setDateCommande(const std::string &date)
+{
     std::regex dateRegex(R"(^\d{2}/\d{2}/\d{4}$)");
-    if (!std::regex_match(date, dateRegex)) {
+    if (!std::regex_match(date, dateRegex))
+    {
         throw std::invalid_argument("La date doit être au format jj/mm/aaaa.");
     }
     m_date = date;
 }
 
-const std::string& Commande::getDateCommande() const {
+const std::string &Commande::getDateCommande() const
+{
     return m_date;
 }
 
-//Méthodes
+// Méthodes
 
-std::string Commande::getStatutAsString() const {
-    if (m_statut == m_statutCommande::EnCours) {
+std::string Commande::getStatutAsString() const
+{
+    if (m_statut == m_statutCommande::EnCours)
+    {
         return "EnCours";
-    } else if (m_statut == m_statutCommande::Validee) {
+    }
+    else if (m_statut == m_statutCommande::Validee)
+    {
         return "Validee";
-    } else if (m_statut == m_statutCommande::Annulee) {
-        return "Non Annulee";
-    } else {
+    }
+    else if (m_statut == m_statutCommande::Annulee)
+    {
+        return "Annulee";
+    }
+    else
+    {
         return "Inconnu";
     }
 }
 
-void Commande::afficherCommande() const {
+void Commande::afficherCommande() const
+{
     std::cout << "ID Commande : " << m_idCommande << "\n";
     std::cout << "Délai de livraison : " << m_delaiLivraison << " jours\n";
     std::cout << "Quantité : " << m_quantiteProduit << "\n";
@@ -119,7 +145,8 @@ void Commande::afficherCommande() const {
     std::cout << "Date : " << m_date << "\n";
 }
 
-void Commande::creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, Produit>& listeProduits, int& tempId){
+void Commande::creerCommande(std::map<int, Commande> &listeCommandes, std::map<long int, Produit> &listeProduits, int &tempId)
+{
 
     int idCommande = ++tempId;
 
@@ -138,20 +165,22 @@ void Commande::creerCommande(std::map<int, Commande>& listeCommandes, std::map<l
     long int codeProduit;
     std::cout << "Entrez le code produit du produit ";
     std::cin >> codeProduit;
-    
-    if (listeProduits.count(codeProduit) > 0 ){
+
+    if (listeProduits.count(codeProduit) > 0)
+    {
         Commande newCommande(
-            idCommande, 
-            delaiLivraison, 
-            listeProduits[codeProduit], 
-            quantiteCommandee, 
-            Commande::m_statutCommande::EnCours, 
+            idCommande,
+            delaiLivraison,
+            listeProduits[codeProduit],
+            quantiteCommandee,
+            Commande::m_statutCommande::EnCours,
             date);
 
         listeCommandes[idCommande] = newCommande;
     }
-    else{
-        std::cout<<"Le produit n'existe pas dans la banque de produit, vous devez créer un nouveau produit" << std::endl;
+    else
+    {
+        std::cout << "Le produit n'existe pas dans la banque de produit, vous devez créer un nouveau produit" << std::endl;
 
         int stock = 0;
 
@@ -165,13 +194,20 @@ void Commande::creerCommande(std::map<int, Commande>& listeCommandes, std::map<l
         std::cout << "Entrez la catégorie du produit (Alcool/Alimentaire/nonAlimentaire): \n";
         std::cin >> input;
 
-        if (input == "Alcool") {
+        if (input == "Alcool")
+        {
             categorie = Produit::m_categorie::Alcool;
-        } else if (input == "Alimentaire") {
+        }
+        else if (input == "Alimentaire")
+        {
             categorie = Produit::m_categorie::Alimentaire;
-        } else if (input == "nonAlimentaire") {
+        }
+        else if (input == "nonAlimentaire")
+        {
             categorie = Produit::m_categorie::nonAlimentaire;
-        } else {
+        }
+        else
+        {
             std::cout << "Erreur : Catégorie invalide !" << std::endl;
             categorie = Produit::m_categorie::nonAlimentaire; // Valeur par défaut
         }
@@ -184,82 +220,77 @@ void Commande::creerCommande(std::map<int, Commande>& listeCommandes, std::map<l
         listeProduits[codeProduit] = newProduit;
 
         Commande newCommande(
-            idCommande, 
-            delaiLivraison, 
-            newProduit, 
-            quantiteCommandee, 
-            Commande::m_statutCommande::EnCours, 
+            idCommande,
+            delaiLivraison,
+            newProduit,
+            quantiteCommandee,
+            Commande::m_statutCommande::EnCours,
             date);
 
         listeCommandes[idCommande] = newCommande;
     }
 }
 
-void validerCommande(std::map<int, Commande>& listeCommandes){
-    std::vector<int>listeIdToValid;
-    std::cout << "Voici la liste des commandes en cours\n";
-    for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++){
-        if (it->second.getStatutAsString() == "EnCours"){
-            listeIdToValid.push_back(it->first);
-            it->second.afficherCommande();
-        }
-    }
-
-    if (listeIdToValid.empty()) {
-        std::cout << "Aucune commande en cours à valider.\n";
-        return;
-    }
+void Commande::validerCommande(std::map<int, Commande> &listeCommandes, std::ostream &fichier)
+{
 
     int idToValid;
     std::cout << "Quelle commande souhaitez-vous valider ? (Renseignez l'id de commande)";
     std::cin >> idToValid;
     bool dansListe = false;
-    for (int id : listeIdToValid){
-        if(id == idToValid){
+    for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++)
+    {
+        if (it->second.getStatutAsString() == "EnCours" && it->first == idToValid)
+        {
             dansListe = true;
-            break;
         }
     }
-    if(dansListe){
-        Commande& commande = listeCommandes[idToValid];
+    if (dansListe)
+    {
+        Commande &commande = listeCommandes[idToValid];
         commande.setStatutCommande(Commande::m_statutCommande::Validee);
         Produit produit = commande.getProduit();
-        produit.setStock(produit.getStock()+commande.getQuantiteProduit());
+        produit.setStock(produit.getStock() + commande.getQuantiteProduit());
         commande.setProduit(produit);
+
+        std::string dateLivraison;
+        std::cout << "Entrez la date : (dd/mm/aaaa)" << std::endl;
+        std::cin >> dateLivraison;
+        commande.ecrireCommandeDansFichier(fichier, commande, dateLivraison);
 
         std::cout << "La commande a été validée." << std::endl;
     }
 }
 
-void annulerCommande(std::map<int, Commande>& listeCommandes){
-    std::vector<int>listeToCancel;
-    std::cout << "Voici la liste des commandes en cours\n";
-    for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++){
-        if (it->second.getStatutAsString() == "EnCours"){
-            listeToCancel.push_back(it->first);
-            it->second.afficherCommande();
-        }
-    }
-
-    if (listeToCancel.empty()) {
-        std::cout << "Aucune commande en cours à annuler.\n";
-        return;
-    }
+void Commande::annulerCommande(std::map<int, Commande> &listeCommandes)
+{
 
     int idToCancel;
     std::cout << "Quelle commande souhaitez-vous annuler ? (Renseignez l'id de commande)";
     std::cin >> idToCancel;
     bool dansListe = false;
-    for (int id : listeToCancel){
-        if(id == idToCancel){
+    for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++)
+    {
+        if (it->second.getStatutAsString() == "EnCours" && it->first == idToCancel)
+        {
             dansListe = true;
-            break;
         }
     }
-    if(dansListe){
-        Commande& commande = listeCommandes[idToCancel];
+    if (dansListe)
+    {
+        Commande &commande = listeCommandes[idToCancel];
         commande.setStatutCommande(Commande::m_statutCommande::Annulee);
 
         std::cout << "La commande a été Annulee." << std::endl;
     }
+}
+
+void Commande::ecrireCommandeDansFichier(std::ostream &fichier, Commande commande, std::string dateLivraison) const
+{
+    fichier << "-------------------------\n";
+    fichier << "Identifiant commande : " << commande.getIdCommande() << std::endl;
+    fichier << "Produits commandés : " << commande.getProduit().getNomProduit() << std::endl;
+    fichier << "Quantité commandée : " << commande.getQuantiteProduit() << std::endl;
+    fichier << "Date livraison : " << dateLivraison << std::endl;
+    fichier << "-------------------------\n";
 }

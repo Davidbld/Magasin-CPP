@@ -54,8 +54,9 @@ enum m_statutCommande{
     std::string getStatutAsString() const;
     void afficherCommande() const;
     void creerCommande(std::map<int, Commande>& listeCommandes, std::map<long int, Produit>& listeProduits, int& tempId);
-    void validerCommande(std::map<int, Commande>& listeCommandes);
+    void validerCommande(std::map<int, Commande>& listeCommandes, std::ostream& fichier);
     void annulerCommande(std::map<int, Commande>& listeCommandes);
+    void ecrireCommandeDansFichier(std::ostream& fichier, Commande commande, std::string dateLivraison) const;
 };
 
 #endif

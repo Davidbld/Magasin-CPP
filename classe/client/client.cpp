@@ -143,7 +143,7 @@ void Client::acheter(int tempId, Produit &produit, std::ostream &fichierVentes, 
 
     if (souscription == "Oui")
     {
-        Client::souscrireFidelite(tempId, listeClientsFideles, &tempClient);
+        Client::souscrireFidelite(tempId, listeClientsFideles);
         ClientFidele &newClient = listeClientsFideles[tempId];
         std::vector<std::string> &listeAchats = newClient.getListeAchats();
         listeAchats.push_back(std::to_string(quantiteAchetee) + "," + produit.getNomProduit() + "," + date); // Ajouter l'achat à la liste d'achat du nouveau client fidèle créé
@@ -229,7 +229,7 @@ void ClientFidele::acheter(int tempId, Produit &produit, std::ostream &fichierVe
     produit.setStock(produit.getStock() - quantiteAchetee);
 }
 
-void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> &listeClientsFideles, Client *oldClient)
+void Client::souscrireFidelite(int &tempIdClient, std::map<int, ClientFidele> &listeClientsFideles)
 {
     int id = ++tempIdClient;
 

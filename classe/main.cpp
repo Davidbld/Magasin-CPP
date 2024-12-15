@@ -17,7 +17,8 @@ std::map<long int, Produit> listeProduits; // Gestion des produits (clé : id, v
 
 
 int main(){
-    std::ofstream fichierVentes("Ventes.txt", std::ios::app); //Initialisation fichier ventes
+    std::ofstream fichierVentes("Ventes.txt", std::ios::app);               //Initialisation fichier ventes
+    std::ofstream fichierCommandesValidees("Commandes validées.txt", std::ios::app);   //Initialisation fichier commandes validées
 
     //Initialisation de quelques produits (possibiltié d'en rajouter avec Commande)
 
@@ -212,13 +213,53 @@ int main(){
             newCommande.creerCommande(listeCommandes, listeProduits, tempId);
         }
         
-        //6.Souscrire un client
-        /*7.Afficher les commandes:
-            -toutes les commandes
-            -commandes en cours
-            -commandes anulées
-            -commandes validées
-            */
+        //6.Gérer les commandes en cours
+        if (input == "6")
+        Commande (0);
+        {
+            int compteur = 0;
+            if (!listeCommandes.empty())
+            {
+                for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++)
+                {
+                    if (it->second.getStatutAsString()=="EnCours")
+                    {
+                        compteur+=1;
+                        it->second.afficherCommande();
+                    }
+
+                    if (compteur==0)
+                    {
+                        std::cout << "Il n'y a aucune commande en cours" << std::endl;
+                    }
+                    if (compteur > 0)
+                    {
+                        int inputCommande = 0;
+                        std::cout << "Souhaitez-vous :\n 1 : Valider une commande.\n2 : Annuler une commande.\n(Un entier est attendu)" << std::endl;
+                        if (inputCommande == 1)
+                        {
+                            Commande validateCommande(0);
+                            validateCommande.validerCommande(listeCommandes, fichierCommandesValidees);
+                            
+
+                        }
+
+                        if (inputCommande == 2)
+                        {
+                            Commande cancelCommande(0);
+                            cancelCommande.annulerCommande(listeCommandes);
+                        }                                      
+                }
+            }  
+        }
+        
+        //7.Souscrire un client
+        if (input == "7")
+        {
+            Client client(0,0); //se détruit automatiquement à la sortie du bloc if
+            client.souscrireFidelite(tempId, listeClientFideles);
+        }
+        
         //8. Afficher les achats d'un client fidèle
         
         std::cout << "Que voulez-vous faire ?\n"
@@ -227,6 +268,9 @@ int main(){
           << "3 pour enregistrer un achat.\n"
           << "4 pour enregistrer un achat d'un client fidèle.\n"
           << "5 pour effectuer une commande auprès des fournisseurs.\n"
+          << "6 pour gérer les commandes en cours.\n"
+          << "7 pour souscrire un nouveau client.\n"
+          << "8 pour afficher les achats d'un client possédant un compte fidélité.\n"
           << "STOP pour quitter \n"
           << "Veuillez entrer votre choix : ";
         std::cin >> input;

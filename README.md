@@ -41,8 +41,8 @@ Ce système de gestion fictif repose sur plusieurs classes :
 
 ## Utilisation
 
-***En cours de conception***  
-Un guide détaillé d'utilisation sera fourni ultérieurement.
+g++ main.cpp client/client.cpp commande/commande.cpp produit/produit.cpp vente/vente.cpp -o main
+./main
 
 ## Nomenclature des *commits*
 

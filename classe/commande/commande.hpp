@@ -32,7 +32,7 @@ enum m_statutCommande{
 
 //Getters and Setters
     void setProduit(Produit produit);
-    Produit getProduit() const;
+    Produit& getProduit();
 
     void setDelaiLivraison(int delaiLivraison);
     int getDelaiLivraison() const;

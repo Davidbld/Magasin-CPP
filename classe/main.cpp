@@ -224,19 +224,24 @@ int main(){
                     if (it->second.getStatutAsString()=="EnCours")
                     {
                         compteur+=1;
+                        std::cout << "----------------\n";
                         it->second.afficherCommande();
+                        std::cout << "----------------\n";
                     }
+                }
 
                     if (compteur==0)
                     {
-                        std::cout << "Il n'y a aucune commande en cours" << std::endl;
+                        std::cout << "Il n'y a aucune com1mande en cours" << std::endl;
                     }
                     if (compteur > 0)
                     {
                         int inputCommande = 0;
-                        std::cout << " (Un entier est attendu) Souhaitez-vous :\n "
+                        std::cout << "(Un entier est attendu) Souhaitez-vous :\n"
                                     << "1 : Valider une commande.\n" 
-                                    << "2 : Annuler une commande. << \n";
+                                    << "2 : Annuler une commande.\n";
+                        std::cin >> inputCommande;
+
                         if (inputCommande == 1)
                         {
                             Commande validateCommande(0);
@@ -245,13 +250,23 @@ int main(){
 
                         }
 
-                        if (inputCommande == 2)
+                        else if (inputCommande == 2)
                         {
                             Commande cancelCommande(0);
                             cancelCommande.annulerCommande(listeCommandes);
-                        }                                      
+                        }
+
+                        else
+                        {
+                            std::cout << "Erreur : 1 ou 2 était attendu.\n" << std::endl;
+                        }
+                                              
+                
                 }
-            }  
+            }
+            if (listeCommandes.empty()){
+                std::cout << "Erreur : historique de commande vide.\n" << std::endl;
+            }
         }
         
         //7.Souscrire un client
@@ -261,9 +276,9 @@ int main(){
             client.souscrireFidelite(tempId, listeClientFideles);
         }
         
-        //8. Afficher les achats d'un client fidèle
+        //8. Afficher les achats d'un client fidèle (todo)
         
-        std::cout << "Que voulez-vous faire ?\n"
+        std::cout << "\nQue voulez-vous faire ?\n"
           << "1 pour afficher les produits disponibles.\n"
           << "2 pour afficher les clients possédant une carte de fidélité.\n"
           << "3 pour enregistrer un achat.\n"
@@ -273,9 +288,9 @@ int main(){
           << "7 pour souscrire un nouveau client.\n"
           << "8 pour afficher les achats d'un client possédant un compte fidélité.\n"
           << "STOP pour quitter \n"
-          << "Veuillez entrer votre choix : ";
+          << "\nVeuillez entrer votre choix : ";
         std::cin >> input;
-    }
+    
     
     }
     return 0;

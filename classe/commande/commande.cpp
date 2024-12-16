@@ -54,7 +54,7 @@ void Commande::setProduit(Produit produit)
     m_produit = produit;
 }
 
-Produit Commande::getProduit() const
+Produit& Commande::getProduit()
 {
     return m_produit;
 }
@@ -140,6 +140,7 @@ void Commande::afficherCommande() const
 {
     std::cout << "ID Commande : " << m_idCommande << "\n";
     std::cout << "Délai de livraison : " << m_delaiLivraison << " jours\n";
+    std::cout << "Produit commandé : " << m_produit.getNomProduit() << "\n";
     std::cout << "Quantité : " << m_quantiteProduit << "\n";
     std::cout << "Statut : " << getStatutAsString() << "\n";
     std::cout << "Date : " << m_date << "\n";
@@ -177,6 +178,7 @@ void Commande::creerCommande(std::map<int, Commande> &listeCommandes, std::map<l
             date);
 
         listeCommandes[idCommande] = newCommande;
+        std::cout << "Commande validée." << std::endl;
     }
     else
     {
@@ -228,6 +230,7 @@ void Commande::creerCommande(std::map<int, Commande> &listeCommandes, std::map<l
             date);
 
         listeCommandes[idCommande] = newCommande;
+        std::cout << "Commande validée." << std::endl;
     }
 }
 
@@ -235,7 +238,7 @@ void Commande::validerCommande(std::map<int, Commande> &listeCommandes, std::ost
 {
 
     int idToValid;
-    std::cout << "Quelle commande souhaitez-vous valider ? (Renseignez l'id de commande)";
+    std::cout << "Quelle commande souhaitez-vous valider ? (Renseignez l'id de commande) :\n";
     std::cin >> idToValid;
     bool dansListe = false;
     for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++)
@@ -249,9 +252,8 @@ void Commande::validerCommande(std::map<int, Commande> &listeCommandes, std::ost
     {
         Commande &commande = listeCommandes[idToValid];
         commande.setStatutCommande(Commande::m_statutCommande::Validee);
-        Produit produit = commande.getProduit();
+        Produit& produit = commande.getProduit();
         produit.setStock(produit.getStock() + commande.getQuantiteProduit());
-        commande.setProduit(produit);
 
         std::string dateLivraison;
         std::cout << "Entrez la date : (dd/mm/aaaa)" << std::endl;

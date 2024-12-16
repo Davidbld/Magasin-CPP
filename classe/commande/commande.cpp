@@ -151,19 +151,19 @@ void Commande::creerCommande(std::map<int, Commande> &listeCommandes, std::map<l
     int idCommande = ++tempId;
 
     std::string date;
-    std::cout << "Entrez la date au format jj/mm/aaaa ";
+    std::cout << "Entrez la date au format jj/mm/aaaa :\n";
     std::cin >> date;
 
     int delaiLivraison;
-    std::cout << "Entrez le délai de livraison (nombre de jours) ";
+    std::cout << "Entrez le délai de livraison (nombre de jours) :\n";
     std::cin >> delaiLivraison;
 
     int quantiteCommandee;
-    std::cout << "Entrez la quantite du produit commandé";
+    std::cout << "Entrez la quantite du produit commandé :\n";
     std::cin >> quantiteCommandee;
 
     long int codeProduit;
-    std::cout << "Entrez le code produit du produit ";
+    std::cout << "Entrez le code produit du produit :\n";
     std::cin >> codeProduit;
 
     if (listeProduits.count(codeProduit) > 0)

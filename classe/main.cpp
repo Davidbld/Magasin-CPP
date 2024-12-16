@@ -215,7 +215,6 @@ int main(){
         
         //6.Gérer les commandes en cours
         if (input == "6")
-        Commande (0);
         {
             int compteur = 0;
             if (!listeCommandes.empty())
@@ -235,7 +234,9 @@ int main(){
                     if (compteur > 0)
                     {
                         int inputCommande = 0;
-                        std::cout << "Souhaitez-vous :\n 1 : Valider une commande.\n2 : Annuler une commande.\n(Un entier est attendu)" << std::endl;
+                        std::cout << " (Un entier est attendu) Souhaitez-vous :\n "
+                                    << "1 : Valider une commande.\n" 
+                                    << "2 : Annuler une commande. << \n";
                         if (inputCommande == 1)
                         {
                             Commande validateCommande(0);
@@ -276,7 +277,7 @@ int main(){
         std::cin >> input;
     }
     
-
+    }
     return 0;
-}
+
 }

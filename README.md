@@ -41,8 +41,9 @@ Ce système de gestion fictif repose sur plusieurs classes :
 
 ## Utilisation
 
-g++ main.cpp client/client.cpp commande/commande.cpp produit/produit.cpp vente/vente.cpp -o main  
-./main
+- Bien vérifié de se situer : /SGMagasin-CPP/classe
+- Puis : g++ main.cpp client/client.cpp commande/commande.cpp produit/produit.cpp vente/vente.cpp -o main  
+- Puis : ./main
 
 ## Nomenclature des *commits*
 

@@ -1,0 +1,6 @@
+-------------------------
+Identifiant commande : 207
+Produits commandés : Shampoing
+Quantité commandée : 100
+Date livraison : 16/12/2024
+-------------------------

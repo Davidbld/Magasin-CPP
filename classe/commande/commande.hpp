@@ -10,7 +10,7 @@ class Commande{
 //Attribus
 private :
     int m_idCommande=0;
-    Produit m_produit;           // Produit associé à la commande
+    Produit* m_produit;           // Produit associé à la commande
     int m_delaiLivraison=0;
     int m_quantiteProduit=0;
 
@@ -31,8 +31,8 @@ enum m_statutCommande{
     Commande(int idCommande, int delaiLivraison, Produit& produit, int quantiteProduit, m_statutCommande statut, std::string date);
 
 //Getters and Setters
-    void setProduit(Produit produit);
-    Produit& getProduit();
+    void setProduit(Produit* produit);
+    Produit* getProduit();
 
     void setDelaiLivraison(int delaiLivraison);
     int getDelaiLivraison() const;

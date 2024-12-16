@@ -17,7 +17,7 @@ Commande::Commande() : m_idCommande(0), m_delaiLivraison(0), m_quantiteProduit(0
 Commande::Commande(int idCommande) : m_idCommande(idCommande) {}
 
 Commande::Commande(int idCommande, int delaiLivraison, Produit &produit, int quantiteProduit, m_statutCommande statut, std::string date)
-    : m_produit(produit),
+    : m_produit(&produit),
       m_delaiLivraison(delaiLivraison),
       m_quantiteProduit(quantiteProduit),
       m_idCommande(idCommande),
@@ -49,12 +49,12 @@ Commande::Commande(int idCommande, int delaiLivraison, Produit &produit, int qua
 
 // Getters et Setters
 
-void Commande::setProduit(Produit produit)
+void Commande::setProduit(Produit* produit)
 {
     m_produit = produit;
 }
 
-Produit& Commande::getProduit()
+Produit* Commande::getProduit()
 {
     return m_produit;
 }
@@ -140,7 +140,7 @@ void Commande::afficherCommande() const
 {
     std::cout << "ID Commande : " << m_idCommande << "\n";
     std::cout << "Délai de livraison : " << m_delaiLivraison << " jours\n";
-    std::cout << "Produit commandé : " << m_produit.getNomProduit() << "\n";
+    std::cout << "Produit commandé : " << m_produit->getNomProduit() << "\n";
     std::cout << "Quantité : " << m_quantiteProduit << "\n";
     std::cout << "Statut : " << getStatutAsString() << "\n";
     std::cout << "Date : " << m_date << "\n";
@@ -252,8 +252,8 @@ void Commande::validerCommande(std::map<int, Commande> &listeCommandes, std::ost
     {
         Commande &commande = listeCommandes[idToValid];
         commande.setStatutCommande(Commande::m_statutCommande::Validee);
-        Produit& produit = commande.getProduit();
-        produit.setStock(produit.getStock() + commande.getQuantiteProduit());
+        Produit* produit = commande.getProduit();
+        produit->setStock(produit->getStock() + commande.getQuantiteProduit());
 
         std::string dateLivraison;
         std::cout << "Entrez la date : (dd/mm/aaaa)" << std::endl;
@@ -268,7 +268,7 @@ void Commande::annulerCommande(std::map<int, Commande> &listeCommandes)
 {
 
     int idToCancel;
-    std::cout << "Quelle commande souhaitez-vous annuler ? (Renseignez l'id de commande)";
+    std::cout << "Quelle commande souhaitez-vous annuler ? (Renseignez l'id de commande) :\n";
     std::cin >> idToCancel;
     bool dansListe = false;
     for (auto it = listeCommandes.begin(); it != listeCommandes.end(); it++)
@@ -291,7 +291,7 @@ void Commande::ecrireCommandeDansFichier(std::ostream &fichier, Commande command
 {
     fichier << "-------------------------\n";
     fichier << "Identifiant commande : " << commande.getIdCommande() << std::endl;
-    fichier << "Produits commandés : " << commande.getProduit().getNomProduit() << std::endl;
+    fichier << "Produits commandés : " << commande.getProduit()->getNomProduit() << std::endl;
     fichier << "Quantité commandée : " << commande.getQuantiteProduit() << std::endl;
     fichier << "Date livraison : " << dateLivraison << std::endl;
     fichier << "-------------------------\n";

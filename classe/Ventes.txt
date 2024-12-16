@@ -7,3 +7,30 @@ Prix total : 120 €
 Remise fidélité : 0 €
 Date : 16/12/2024
 -------------------------
+-------------------------
+Produit : Shampoing
+Prix HT :10
+Prix TTC : 12 €
+Quantité : 10
+Prix total : 120 €
+Remise fidélité : 0 €
+Date : 16/12/2024
+-------------------------
+-------------------------
+Produit : Shampoing
+Prix HT :10
+Prix TTC : 12 €
+Quantité : 10
+Prix total : 120 €
+Remise fidélité : 10 €
+Date : 16/12/2024
+-------------------------
+-------------------------
+Produit : Shampoing
+Prix HT :10
+Prix TTC : 12 €
+Quantité : 10
+Prix total : 120 €
+Remise fidélité : 0 €
+Date : 16/12/2024
+-------------------------

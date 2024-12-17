@@ -1,8 +1,9 @@
 # SGMagasin-CPP
 
-Un projet universitaire visant à programmer un système de gestion d'un magasin en C++.
+Un projet universitaire visant à programmer un système de gestion d'un magasin en C++.\
+*Nous avons cherché, dans le laps de temps qui nous était imparti, à concevoir un système aussi réaliste que possible.*
 
-Nous avons cherché, dans le laps de temps qui nous était imparti, à concevoir un système aussi réaliste que possible.
+Ce système prend en charge des produits de différentes catégories, des clients de différents niveaux, ainsi qu'un registre des ventes et des commandes de réassort.
 
 ## Fonctionnalités
 
@@ -41,9 +42,11 @@ Ce système de gestion fictif repose sur plusieurs classes :
 
 ## Utilisation
 
-- Bien vérifié de se situer : /SGMagasin-CPP/classe
-- Puis : g++ main.cpp client/client.cpp commande/commande.cpp produit/produit.cpp vente/vente.cpp -o main  
-- Puis : ./main
+Afin de bien compiler ce programme, il est crucial de se trouver dans le dosser ```/SGMagasin-CPP/classe```.
+
+En suite, taper la commande suivante : ```g++ main.cpp client/client.cpp commande/commande.cpp produit/produit.cpp vente/vente.cpp -o main.exe```
+
+Et enfin, pour executer le fichier généré, entrez : ```./main```
 
 ## Nomenclature des *commits*
 
